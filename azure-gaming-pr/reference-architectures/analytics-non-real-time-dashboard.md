@@ -23,10 +23,10 @@ This article will describe the architecture used in [this sample on GitHub](http
 
 ### Relevant services
 
-- [Azure Function](https://docs.microsoft.com/azure/azure-functions/functions-overview) - Used as the API receiving the events from the device clients.
+- [Azure Function](/azure/azure-functions/functions-overview) - Used as the API receiving the events from the device clients.
 - [Azure Event Hub](https://azure.microsoft.com/services/event-hubs/) - A service tailored for analytics pipelines and is simple to use with little configuration or management overhead. As a bonus, it will be also usable if you decide later on that you would like to process events in real-time.
-- [Azure Databricks](https://docs.microsoft.com/azure/azure-databricks/what-is-azure-databricks) - Transforms the data from Azure Event Hubs Capture (AVRO format) to JSON files, and also converts the data into CSV files compatible with Power BI. Streaming data from Azure Event Hubs to Azure Blob Storage in a performant way is not entirely trivial, unless it's a very small scale.
-- [Azure Blob Storage](https://docs.microsoft.com/azure/storage/blobs/storage-blobs-overview) - Optimized for storing  massive amounts of unstructured data.
+- [Azure Databricks](/azure/azure-databricks/what-is-azure-databricks) - Transforms the data from Azure Event Hubs Capture (AVRO format) to JSON files, and also converts the data into CSV files compatible with Power BI. Streaming data from Azure Event Hubs to Azure Blob Storage in a performant way is not entirely trivial, unless it's a very small scale.
+- [Azure Blob Storage](/azure/storage/blobs/storage-blobs-overview) - Optimized for storing  massive amounts of unstructured data.
 - [Power BI](https://powerbi.microsoft.com/) - A fully customizable dashboard. Note that Azure can integrate with other data visualization products like IBM SPSS or Tableau, but at the moment those can't connect directly with Azure Blob Storage.  Please see the alternative architecture below leveraging Azure SQL Data Warehouse if you are interested in using these data visualization products.
 
 ### Step by step
@@ -50,13 +50,13 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Create an Event Hub using Azure Resource Manager template](https://docs.microsoft.com/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
-> - [Automate resource deployment for your function app in Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
+> - [Create an Event Hub using Azure Resource Manager template](/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
+> - [Automate resource deployment for your function app in Azure Functions](/azure/azure-functions/functions-infrastructure-as-code)
 > - [Azure Databricks workspace template](https://github.com/Azure/azure-quickstart-templates/tree/master/101-databricks-workspace/)
 
-Add these Function [application settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can connect to the Azure services:
+Add these Function [application settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can connect to the Azure services:
 
-- EVENTHUB_CONNECTION_STRING - The [connection string](https://docs.microsoft.com/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created
+- EVENTHUB_CONNECTION_STRING - The [connection string](/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created
 
 Next, [start the Azure Databricks cluster](https://docs.azuredatabricks.net/user-guide/clusters/start.html) either through the portal or API.
 
@@ -81,7 +81,7 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#az
 
 #### API
 
-In this reference architecture, the API is going to be implemented via an Azure Function (serverless), so you do not have to consider load balancing and scaling servers. The input of the Azure Function is going to be an [HTTP trigger](https://docs.microsoft.com/azure/azure-functions/functions-bindings-http-webhook#trigger) and the output will be an [Event Hub](https://docs.microsoft.com/azure/azure-functions/functions-bindings-event-hubs#output).
+In this reference architecture, the API is going to be implemented via an Azure Function (serverless), so you do not have to consider load balancing and scaling servers. The input of the Azure Function is going to be an [HTTP trigger](/azure/azure-functions/functions-bindings-http-webhook#trigger) and the output will be an [Event Hub](/azure/azure-functions/functions-bindings-event-hubs#output).
 
 ```csharp
 [return: EventHub("ehnrtanalytics-output", Connection = "EventHubConnectionAppSetting")]
@@ -121,17 +121,17 @@ The list of steps to pull the information from the Azure Blob Storage and prepar
 
 ### Security considerations
 
-Do not hard-code any Event Hub or Cognitive Services connection strings into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](https://docs.microsoft.com/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
+Do not hard-code any Event Hub or Cognitive Services connection strings into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
 
-Review the [Event Hub authentication and security model overview](https://docs.microsoft.com/azure/event-hubs/event-hubs-authentication-and-security-model-overview) and put it into practice to ensure only your chat server can talk to the Event Hub.
+Review the [Event Hub authentication and security model overview](/azure/event-hubs/event-hubs-authentication-and-security-model-overview) and put it into practice to ensure only your chat server can talk to the Event Hub.
 
 ### Optimization considerations
 
-You can transition blobs stored in Azure Blob Storage to a "cooler" storage tier (Hot to Cool, Hot to Archive, or Cool to Archive), or delete blobs at the end of their lifecycles to **optimize for performance and cost** using [Azure Blob Storage lifecycle management policy](https://docs.microsoft.com/azure/storage/blobs/storage-lifecycle-management-concepts).
+You can transition blobs stored in Azure Blob Storage to a "cooler" storage tier (Hot to Cool, Hot to Archive, or Cool to Archive), or delete blobs at the end of their lifecycles to **optimize for performance and cost** using [Azure Blob Storage lifecycle management policy](/azure/storage/blobs/storage-lifecycle-management-concepts).
 
 ### Alternatives
 
-You could consider replacing [Azure Databricks](https://docs.microsoft.com/azure/azure-databricks/what-is-azure-databricks) with [Azure HDInsight](https://docs.microsoft.com/azure/hdinsight/).  The main difference in this scenario is Azure Databricks handles spinning up/down clusters for you, while with Azure HDInsight you have to take care of that yourself
+You could consider replacing [Azure Databricks](/azure/azure-databricks/what-is-azure-databricks) with [Azure HDInsight](/azure/hdinsight/).  The main difference in this scenario is Azure Databricks handles spinning up/down clusters for you, while with Azure HDInsight you have to take care of that yourself
 
 ## Gathering analytics in a large scale
 
@@ -141,7 +141,7 @@ You could consider replacing [Azure Databricks](https://docs.microsoft.com/azure
 
 ### Implementation details
 
-Leveraging [Azure Event Hubs Capture](https://docs.microsoft.com/azure/event-hubs/event-hubs-capture-overview) and [Azure Event Grid](https://docs.microsoft.com/azure/event-grid/overview) you can get the data sent by your players into Azure SQL Data Warehouse. For a full step-by-step walkthrough, see [migrate captured Event Hubs data to a SQL Data Warehouse using Event Grid and Azure Functions](https://docs.microsoft.com/azure/event-hubs/store-captured-data-data-warehouse), including how to use [Power BI with SQL Data Warehouse](https://docs.microsoft.com/azure/sql-data-warehouse/sql-data-warehouse-integrate-power-bi).
+Leveraging [Azure Event Hubs Capture](/azure/event-hubs/event-hubs-capture-overview) and [Azure Event Grid](/azure/event-grid/overview) you can get the data sent by your players into Azure SQL Data Warehouse. For a full step-by-step walkthrough, see [migrate captured Event Hubs data to a SQL Data Warehouse using Event Grid and Azure Functions](/azure/event-hubs/store-captured-data-data-warehouse), including how to use [Power BI with SQL Data Warehouse](/azure/sql-data-warehouse/sql-data-warehouse-integrate-power-bi).
 
 ### Deployment template
 
@@ -157,8 +157,8 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 
 Optionally you can choose to prepare data outside of your warehouse to leverage new skills and tooling that are emerging in your studio.
 
-- With [Azure Databricks](https://docs.microsoft.com/azure/azure-databricks/what-is-azure-databricks), data scientists can use the full power of the Databricks Runtime with a variety of language choices to develop ETL (extract, transform, load) processes that can scale as your game grows, and write the data directly into Azure SQL Data Warehouse.
-- Or you could also perform fast, interactive SQL queries at scale over structured or unstructured data produced by your game by hooking up Azure SQL Data Warehouse with [Azure HDInsight](https://docs.microsoft.com/azure/hdinsight/).
+- With [Azure Databricks](/azure/azure-databricks/what-is-azure-databricks), data scientists can use the full power of the Databricks Runtime with a variety of language choices to develop ETL (extract, transform, load) processes that can scale as your game grows, and write the data directly into Azure SQL Data Warehouse.
+- Or you could also perform fast, interactive SQL queries at scale over structured or unstructured data produced by your game by hooking up Azure SQL Data Warehouse with [Azure HDInsight](/azure/hdinsight/).
 
 ## Additional resources and samples
 
@@ -167,7 +167,7 @@ Optionally you can choose to prepare data outside of your warehouse to leverage 
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 
