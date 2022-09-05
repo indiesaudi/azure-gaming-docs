@@ -21,9 +21,9 @@ ms.prod: azure-gaming
 
 ### Implementation details
 
-In this complete [tutorial](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-web-app-cache-aside-leaderboard) that includes source code you can learn how to implement a leaderboard that uses Azure Cache for Redis in tandem with another database to improve data throughput and reduce database load.
+In this complete [tutorial](/azure/azure-cache-for-redis/cache-web-app-cache-aside-leaderboard) that includes source code you can learn how to implement a leaderboard that uses Azure Cache for Redis in tandem with another database to improve data throughput and reduce database load.
 
-It leverages the [cache-aside pattern](https://docs.microsoft.com/azure/architecture/patterns/cache-aside) using Azure Cache for Redis as a caching layer for the persistent database backend. Whenever you do a write you write the data to both the persistent database and Azure Cache for Redis. Whenever you read, you read the data from the cache first and if you get a *miss* (the data is no longer in the cache, as it expires after a certain time) then you read the data from the persistent database and right after that you write it into the cache. If you get a cache *hit*, you read the data from the cache.
+It leverages the [cache-aside pattern](/azure/architecture/patterns/cache-aside) using Azure Cache for Redis as a caching layer for the persistent database backend. Whenever you do a write you write the data to both the persistent database and Azure Cache for Redis. Whenever you read, you read the data from the cache first and if you get a *miss* (the data is no longer in the cache, as it expires after a certain time) then you read the data from the persistent database and right after that you write it into the cache. If you get a cache *hit*, you read the data from the cache.
 
 The sample is using **Entity Framework**, a .NET abstraction layer to model and express relationship between data objects. Using it and in a nutshell, from a programming model standpoint you are getting a bunch of objects and setting properties to those objects, then the Entity Framework will map all the operations into SQL operations.
 
@@ -39,7 +39,7 @@ The step by step is:
 
 ### Alternatives
 
-Alternatively to [Azure SQL Database](https://docs.microsoft.com/azure/sql-database/sql-database-technical-overview), you could use other database like [Azure Database for MySQL](https://docs.microsoft.com/azure/mysql/overview) for example.
+Alternatively to [Azure SQL Database](/azure/sql-database/sql-database-technical-overview), you could use other database like [Azure Database for MySQL](/azure/mysql/overview) for example.
 
 ## Advanced leaderboard for large scale
 
@@ -49,10 +49,10 @@ Alternatively to [Azure SQL Database](https://docs.microsoft.com/azure/sql-datab
 
 ### Architecture services
 
-- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/)
-- [Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/)
+- [Azure Functions](/azure/azure-functions/)
+- [Azure Cosmos DB](/azure/cosmos-db/)
 
-In this implementation, an Azure Function is used to write the data, instead of the Azure Cosmos DB SDK. If you are looking for finer control and debugging, you can leverage an app service and the [Change Feed Processor](https://docs.microsoft.com/azure/cosmos-db/change-feed-processor).
+In this implementation, an Azure Function is used to write the data, instead of the Azure Cosmos DB SDK. If you are looking for finer control and debugging, you can leverage an app service and the [Change Feed Processor](/azure/cosmos-db/change-feed-processor).
 
 ### Architecture considerations
 
@@ -62,21 +62,21 @@ There are a variety of design considerations and choices to make when designing 
 
 Before we go any further, it's worth explaining some of the Azure Cosmos DB foundational aspects.
 
-**Partitioning** Cosmos DB is a horizontally scalable database with data stored on individual servers known as [physical partitions](https://docs.microsoft.com/azure/cosmos-db/partitioning-overview#physical-partitions). As data or throughput is increased. Cosmos adds additional partitions that allows the database to "scale out", increasing storage capacity and processing power.
+**Partitioning** Cosmos DB is a horizontally scalable database with data stored on individual servers known as [physical partitions](/azure/cosmos-db/partitioning-overview#physical-partitions). As data or throughput is increased. Cosmos adds additional partitions that allows the database to "scale out", increasing storage capacity and processing power.
 
 Azure Cosmos DB abstracts away physical partitions with what are known as **logical partitions**. When a new container is created, the user specifies a property that will be used to assign each item to a logical partition where it will be stored.
 
 A container with a partition key of `userId` with 1000 users will have 1000 logical partitions. However logical partitions are virtual concepts. There is no limit on the number of logical partitions in a container. All data in a logical partition shares the same partition key value. So all data where `userId = abc` will all be in the same logical partition.
 
-Data within each logical partition can be uniquely identified by the combination of it's partition key value and id value. All insert, update and delete operations are done using the partition key value and id value. Data can also be read using queries using a [special SQL syntax](https://docs.microsoft.com/azure/cosmos-db/sql-query-getting-started) unique to Azure Cosmos DB and designed to work with JSON data.
+Data within each logical partition can be uniquely identified by the combination of it's partition key value and id value. All insert, update and delete operations are done using the partition key value and id value. Data can also be read using queries using a [special SQL syntax](/azure/cosmos-db/sql-query-getting-started) unique to Azure Cosmos DB and designed to work with JSON data.
 
 There are three key things that you need to take into consideration when defining a partition key:
 
 1. There is a limit of 20GB per logical partition. Data should not grow beyond this amount so careful design will be needed to ensure high enough cardinality for your partitioning strategy.
 2. The partition key property cannot be changed after the container has been created. If a partition key is defined as /userId, it cannot be later changed to be /gameId. However, migrate a container to overcome this.
-3. In write-heavy scenarios, your partition key should spread your writes as evenly as possible to avoid hot spots. In read heavy workloads, queries should strive to serve data from one or as few partitions as possible and avoid high volume of cross-partition or fan-out queries. Where workloads are both read and write heavy, [Change Feed](https://docs.microsoft.com/azure/cosmos-db/change-feed-design-patterns) can be used to materialize data with a different partition key to better answer queries.
+3. In write-heavy scenarios, your partition key should spread your writes as evenly as possible to avoid hot spots. In read heavy workloads, queries should strive to serve data from one or as few partitions as possible and avoid high volume of cross-partition or fan-out queries. Where workloads are both read and write heavy, [Change Feed](/azure/cosmos-db/change-feed-design-patterns) can be used to materialize data with a different partition key to better answer queries.
 
-For all the details on how to choose a partition key for your leaderboard, see [choosing a partition key](https://docs.microsoft.com/azure/cosmos-db/partitioning-overview#choose-partitionkey).
+For all the details on how to choose a partition key for your leaderboard, see [choosing a partition key](/azure/cosmos-db/partitioning-overview#choose-partitionkey).
 
 The implementation of this leaderboard reference architecture will leverage a **global leaderboard general collection** - aka the game play container that stores all the entries - and a **partition key for each combination of values**.
 
@@ -138,7 +138,7 @@ In this scenario, if the first player is driving in the track *Monza* (level) us
 
 #### Cascade writing pattern
 
-Game play data may typically be written into multiple containers, especially if you have related variables (for example: iOS, Android and mobile. Where mobile is a filter that shows records from both iOS and Android users) the best practice is to not do more than a single writing operation and instead let the [Azure Cosmos DB change feed](https://docs.microsoft.com/azure/cosmos-db/change-feed) do the work by trickling effect to avoid inconsistencies that could happen if only one of the writes actually completed.
+Game play data may typically be written into multiple containers, especially if you have related variables (for example: iOS, Android and mobile. Where mobile is a filter that shows records from both iOS and Android users) the best practice is to not do more than a single writing operation and instead let the [Azure Cosmos DB change feed](/azure/cosmos-db/change-feed) do the work by trickling effect to avoid inconsistencies that could happen if only one of the writes actually completed.
 
 #### Changing the Partition key
 
@@ -161,23 +161,23 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 
 With respect to optimizing Cosmos DB cost, here are some useful resources:
 
-- [Pricing model](https://docs.microsoft.com/azure/cosmos-db/how-pricing-works)
-- [Optimizing for development and testing in Azure Cosmos DB](https://docs.microsoft.com/azure/cosmos-db/optimize-dev-test)
-- [Total cost of ownership (TCO)](https://docs.microsoft.com/azure/cosmos-db/total-cost-ownership)
-- [Understand your bill](https://docs.microsoft.com/azure/cosmos-db/understand-your-bill)
-- [Optimize provisioned throughput cost](https://docs.microsoft.com/azure/cosmos-db/optimize-cost-throughput)
-- [Optimize query cost](https://docs.microsoft.com/azure/cosmos-db/optimize-cost-queries)
-- [Optimize storage cost](https://docs.microsoft.com/azure/cosmos-db/optimize-cost-storage)
-- [Optimize reads and writes cost](https://docs.microsoft.com/azure/cosmos-db/optimize-cost-reads-writes)
-- [Optimize multi-regions cost](https://docs.microsoft.com/azure/cosmos-db/optimize-cost-regions)
-- [Optimize dev/testing workloads](https://docs.microsoft.com/azure/cosmos-db/optimize-dev-test)
-- [Optimize with reserved capacity](https://docs.microsoft.com/azure/cosmos-db/cosmos-db-reserved-capacity)
+- [Pricing model](/azure/cosmos-db/how-pricing-works)
+- [Optimizing for development and testing in Azure Cosmos DB](/azure/cosmos-db/optimize-dev-test)
+- [Total cost of ownership (TCO)](/azure/cosmos-db/total-cost-ownership)
+- [Understand your bill](/azure/cosmos-db/understand-your-bill)
+- [Optimize provisioned throughput cost](/azure/cosmos-db/optimize-cost-throughput)
+- [Optimize query cost](/azure/cosmos-db/optimize-cost-queries)
+- [Optimize storage cost](/azure/cosmos-db/optimize-cost-storage)
+- [Optimize reads and writes cost](/azure/cosmos-db/optimize-cost-reads-writes)
+- [Optimize multi-regions cost](/azure/cosmos-db/optimize-cost-regions)
+- [Optimize dev/testing workloads](/azure/cosmos-db/optimize-dev-test)
+- [Optimize with reserved capacity](/azure/cosmos-db/cosmos-db-reserved-capacity)
 
 ## Additional potential features
 
 ### Adding support for push notifications
 
-Depending on the platform your players are using, you may want to let them know when their score has been beaten by a friend for example, you can leverage the [Azure Cosmos DB change feed](https://docs.microsoft.com/azure/cosmos-db/change-feed) and the [Azure Notification Hubs service](https://docs.microsoft.com/azure/notification-hubs/) for enabling that.
+Depending on the platform your players are using, you may want to let them know when their score has been beaten by a friend for example, you can leverage the [Azure Cosmos DB change feed](/azure/cosmos-db/change-feed) and the [Azure Notification Hubs service](/azure/notification-hubs/) for enabling that.
 
 ![Push notification support architecture](media/leaderboard/leaderboard-push-notification.png)
 
@@ -189,7 +189,7 @@ Set up a [game Leaderboards API hosted on Azure Functions and backed by Azure Co
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures, the total amount depends on the number of events that will run though the analytics pipeline. See the pricing webpages for each of the services that were used in the reference architectures:
 
