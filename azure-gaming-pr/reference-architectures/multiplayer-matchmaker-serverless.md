@@ -17,11 +17,11 @@ This article will describe the architecture used in [this sample on GitHub](http
 
 ## Relevant services
 
-- [Azure Traffic Manager](https://docs.microsoft.com/azure/traffic-manager/traffic-manager-overview) - Selected as it connects the player to the most appropiate regional zone based on latency.
-- [Azure Function](https://docs.microsoft.com/azure/azure-functions/functions-overview) - Selected as it's the simplest way to run the small pieces of matchmaking logic, also you are only charged when you have users attempting to matchmake and play.
+- [Azure Traffic Manager](/azure/traffic-manager/traffic-manager-overview) - Selected as it connects the player to the most appropiate regional zone based on latency.
+- [Azure Function](/azure/azure-functions/functions-overview) - Selected as it's the simplest way to run the small pieces of matchmaking logic, also you are only charged when you have users attempting to matchmake and play.
 - [Azure Event Hub](https://azure.microsoft.com/services/event-hubs/) - Allows batching requests, handy to avoid exhausting the Azure Cache of Redis connection pool.
-- [Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-overview) - Simple key/value pair database for storing the information of the different players trying to join a multiplayer session, and also the connection information (IP/port) from the game servers used. Selected as query flexibility, indexing, replication and move data out are not a strict requirement, also pricing is based on storage capacity exclusively.
-- [Resource Groups](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-portal#manage-resource-groups) - Leverage one resource group for the Azure Traffic Manager and one resource group for each matchmaking regional handler (i.e: one for North America, another for Europe, another for LATAM, another for Asia, etc).
+- [Azure Cache for Redis](/azure/azure-cache-for-redis/cache-overview) - Simple key/value pair database for storing the information of the different players trying to join a multiplayer session, and also the connection information (IP/port) from the game servers used. Selected as query flexibility, indexing, replication and move data out are not a strict requirement, also pricing is based on storage capacity exclusively.
+- [Resource Groups](/azure/azure-resource-manager/resource-group-portal#manage-resource-groups) - Leverage one resource group for the Azure Traffic Manager and one resource group for each matchmaking regional handler (i.e: one for North America, another for Europe, another for LATAM, another for Asia, etc).
 
 ## Deployment template
 
@@ -36,14 +36,14 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Create an Azure Cache for Redis using a template](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-redis-cache-arm-provision)
-> - [Create an Event Hub using Azure Resource Manager template](https://docs.microsoft.com/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
-> - [Automate resource deployment for your function app in Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
+> - [Create an Azure Cache for Redis using a template](/azure/azure-cache-for-redis/cache-redis-cache-arm-provision)
+> - [Create an Event Hub using Azure Resource Manager template](/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
+> - [Automate resource deployment for your function app in Azure Functions](/azure/azure-functions/functions-infrastructure-as-code)
 
-Finally add the Function [application settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can reach out to the Azure services:
+Finally add the Function [application settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can reach out to the Azure services:
 
-- EVENTHUB_CONNECTION_STRING - The [connection string](https://docs.microsoft.com/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created.
-- REDIS_CONNECTION_STRING - The [connection string](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-configure#access-keys) to the Azure Cache for Redis that was created.
+- EVENTHUB_CONNECTION_STRING - The [connection string](/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created.
+- REDIS_CONNECTION_STRING - The [connection string](/azure/azure-cache-for-redis/cache-configure#access-keys) to the Azure Cache for Redis that was created.
 
 >[!TIP]
 > To run the Azure Functions locally, update the *local.settings.json* file with these same app settings.
@@ -97,7 +97,7 @@ In a notification system-triggered Azure Function (not Durable) that consumes th
     - Send to the orchestrator instance ID that matches the player ID – using specific orchestration instance IDs is how this function knows where to send the events.
     - Send the server information.
 
-The device client [polls the match request monitor’s status](https://docs.microsoft.com/azure/azure-functions/durable/durable-functions-http-api#get-instance-status), seeing either that the orchestration is in progress, or has completed with a) a timeout message or b) server information. If b, it connects to the server. Specifically for this scenario, the GET URL that needs to be invoked by the device client is: `GET /runtime/webhooks/durabletask/instances/{playerGUID}?code={systemKey}`
+The device client [polls the match request monitor’s status](/azure/azure-functions/durable/durable-functions-http-api#get-instance-status), seeing either that the orchestration is in progress, or has completed with a) a timeout message or b) server information. If b, it connects to the server. Specifically for this scenario, the GET URL that needs to be invoked by the device client is: `GET /runtime/webhooks/durabletask/instances/{playerGUID}?code={systemKey}`
 
 #### Exercise for the reader
 
@@ -123,13 +123,13 @@ Also the sample doesn't include the code to do **scale out requests** when there
 
 ## Scaling
 
-In terms of Azure Cache for Redis capacity, see [how to scale Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-how-to-scale) to learn how to scale appropriately the database storing the matchmaking information.
+In terms of Azure Cache for Redis capacity, see [how to scale Azure Cache for Redis](/azure/azure-cache-for-redis/cache-how-to-scale) to learn how to scale appropriately the database storing the matchmaking information.
 
 Have a look at the [general guidelines documentation](./general-guidelines.md#azure-event-hub-partitions) to understand the Azure Event Hub peculiarities and the rule of thumb to model the partition count.
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures, the total amount depends on the number of events that will run though the analytics pipeline. See the pricing webpages for each of the services that were used in the reference architectures:
 
