@@ -33,19 +33,19 @@ And once you are in the public cloud, you can **continue the journey** at a late
 
 ### Architecture services
 
-- [Azure Linux Virtual Machines](https://docs.microsoft.com/azure/virtual-machines/linux/overview) - The most basic way to get computing power on Azure, in this case hosting the Apache web server and application PHP files LAMP components.
-- [Azure Virtual Machine Scale Set](https://docs.microsoft.com/azure/virtual-machine-scale-sets/overview) - Let you create and manage a group of identical, load balanced Virtual Machines.
-- [Azure Database for MySQL](https://docs.microsoft.com/azure/mysql/) - The LAMP data-storage component.
-- [Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-overview) - Cache to improve the performance and scalability of the architecture.
-- [Azure Load Balancer](https://docs.microsoft.com/azure/load-balancer/load-balancer-overview) - Distributes the traffic across the different Azure Linux Virtual Machine instances from the Azure Virtual Machine Scale Set.
-- [Azure Storage](https://docs.microsoft.com/azure/storage/common/storage-introduction) - Stores the flat files.
-- [Azure DDoS Protection Standard](https://docs.microsoft.com/azure/virtual-network/ddos-protection-overview) - Azure DDoS protection, combined with application design best practices, provide defense against DDoS attacks.
+- [Azure Linux Virtual Machines](/azure/virtual-machines/linux/overview) - The most basic way to get computing power on Azure, in this case hosting the Apache web server and application PHP files LAMP components.
+- [Azure Virtual Machine Scale Set](/azure/virtual-machine-scale-sets/overview) - Let you create and manage a group of identical, load balanced Virtual Machines.
+- [Azure Database for MySQL](/azure/mysql/) - The LAMP data-storage component.
+- [Azure Cache for Redis](/azure/azure-cache-for-redis/cache-overview) - Cache to improve the performance and scalability of the architecture.
+- [Azure Load Balancer](/azure/load-balancer/load-balancer-overview) - Distributes the traffic across the different Azure Linux Virtual Machine instances from the Azure Virtual Machine Scale Set.
+- [Azure Storage](/azure/storage/common/storage-introduction) - Stores the flat files.
+- [Azure DDoS Protection Standard](/azure/virtual-network/ddos-protection-overview) - Azure DDoS protection, combined with application design best practices, provide defense against DDoS attacks.
 
 ### Step by step
 
 1. The device client gets the **Azure Load Balancer** IP address from a domain name system (DNS).
 2. The Azure Load Balancer chooses a specific **Azure Linux Virtual Machine** instance from the **Azure Virtual Machine Scale Set**.
-3. The Azure Linux Virtual Machines code attempts to read information stored in the **Azure Cache for Redis** first, following the [common cache-aside pattern](https://docs.microsoft.com/azure/architecture/patterns/cache-aside).
+3. The Azure Linux Virtual Machines code attempts to read information stored in the **Azure Cache for Redis** first, following the [common cache-aside pattern](/azure/architecture/patterns/cache-aside).
 4. The Azure Linux Virtual Machines code reads or writes information from/into the **Azure Database for MySQL**, and any available read replicas, using a connection pooler.
 5. To ensure high-availability, the Azure Database for MySQL has some kind of replication enabled.
 6. Azure Linux Virtual Machine instances from the Azure Virtual Machine Scale Set read and write flat files from/into a high-performance **Azure Storage**.
@@ -81,7 +81,7 @@ Learn how [GameInsight uses Azure to host and run their LAMP-based architecture]
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures, the total amount depends on the number of events that will run though the analytics pipeline. See the pricing webpages for each of the services that were used in the reference architectures:
 
@@ -115,7 +115,7 @@ For someone implementing this system, these are the important pieces you will ne
 
 2. Azure Cache for Redis
 
-    For selecting the right cache for your situation, review [What Azure Cache for Redis offering and size should I use?](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-faq#what-azure-cache-for-redis-offering-and-size-should-i-use). To estimate the monthly Azure for Redis Cache cost, apply this formula, knowing that pricing varies per instance SKU (Premium > Standard > Basic) and also may vary per region:
+    For selecting the right cache for your situation, review [What Azure Cache for Redis offering and size should I use?](/azure/azure-cache-for-redis/cache-faq#what-azure-cache-for-redis-offering-and-size-should-i-use). To estimate the monthly Azure for Redis Cache cost, apply this formula, knowing that pricing varies per instance SKU (Premium > Standard > Basic) and also may vary per region:
 
     `(# of instances * # of hours running per month) + (# of GBs per instance for persistence if enabled in Premium SKU)`
 
