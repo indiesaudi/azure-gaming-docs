@@ -107,8 +107,7 @@ The Azure Database for MySQL persistent database that will be used to store the 
 
 ## Create database tables
 
-See this [tutorial](
-https://docs.microsoft.com/azure/mysql/quickstart-create-mysql-server-database-using-azure-portal#get-the-connection-information) to read about how to get the database connection information, configure the firewall and how to establish a connection to the database, either:
+See this [tutorial](/azure/mysql/quickstart-create-mysql-server-database-using-azure-portal#get-the-connection-information) to read about how to get the database connection information, configure the firewall and how to establish a connection to the database, either:
 - using the [mysql command-line tool](https://dev.mysql.com/doc/refman/5.7/en/mysql.html) from the Azure portal Cloud Shell, note that it requires a cloud drive account.
 - using the [MySQL Workbench GUI tool](https://dev.mysql.com/downloads/workbench/).
 
@@ -219,5 +218,5 @@ There are two main services available to submit notifications: Notification Hubs
 |----------|----------|-----------|
 |**Message source**|Can be from either game server (broadcast or server push only), or another client (chat like bi-directional), depends on the scenario|Existing infrastructure of the platform providers (Microsoft, Google, Apple, etc)|
 |**Dedicated server required**|Depends on the scenario. the service supports REST API, so message source/app can publish message to client via SignalR Service REST API directly without a server needed. Alternatively it officially supports Azure Functions bindings with SignalR Service, so it accommodates serverless scenario as well|No|
-|**Code agnostic**|Yes. SignalR now has client SDKs in C#, JS, also covers Xamarin, Unity and Java SDK. Upcoming releases for C++ and Object-C/Swift. The REST API supports any REST capable language. The Azure Functions bindings supports any language Azure Function supports|Yes, you can use a [REST API and templates](https://docs.microsoft.com/azure/notification-hubs/notification-hubs-aspnet-cross-platform-notification)|
+|**Code agnostic**|Yes. SignalR now has client SDKs in C#, JS, also covers Xamarin, Unity and Java SDK. Upcoming releases for C++ and Object-C/Swift. The REST API supports any REST capable language. The Azure Functions bindings supports any language Azure Function supports|Yes, you can use a [REST API and templates](/azure/notification-hubs/notification-hubs-aspnet-cross-platform-notification)|
 |**Message delivery**|Immediate (via WebSocket)|Immediacy not guaranteed|
