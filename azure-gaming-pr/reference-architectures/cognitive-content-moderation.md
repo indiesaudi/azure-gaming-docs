@@ -21,16 +21,16 @@ This article will describe the architecture used in [this sample on GitHub](http
 
 ## Architecture Services
 
-- [Content Moderator](https://docs.microsoft.com/azure/cognitive-services/content-moderator/overview) - Checks text, image, and video content for material that is potentially offensive, risky, or otherwise undesirable. When such material is found, the service applies appropriate labels (flags) to the content.
-- [Azure Traffic Manager](https://docs.microsoft.com/azure/traffic-manager/traffic-manager-overview) - When scaling across multiple regions globally, this service selects the closest region to connect to via DNS.
+- [Content Moderator](/azure/cognitive-services/content-moderator/overview) - Checks text, image, and video content for material that is potentially offensive, risky, or otherwise undesirable. When such material is found, the service applies appropriate labels (flags) to the content.
+- [Azure Traffic Manager](/azure/traffic-manager/traffic-manager-overview) - When scaling across multiple regions globally, this service selects the closest region to connect to via DNS.
 - [Event Hub](https://azure.microsoft.com/services/event-hubs/) - A service tailored for real-time receiving and processing of a large number of events (chat strings in this case), in order, with little configuration or management overhead.
-- [Azure Function](https://docs.microsoft.com/azure/azure-functions/functions-overview) - Serverless compute service to run code on-demand -- in this case, code that invokes the different Cognitive Services.
+- [Azure Function](/azure/azure-functions/functions-overview) - Serverless compute service to run code on-demand -- in this case, code that invokes the different Cognitive Services.
 
 ## Architecture considerations
 
 You only need to create a single Event Hub namespace that will contain the 2 Event Hubs used for sending and receiving messages, respectively.
 
-The Azure Content Moderator detects profanity (masked or not) and PII. It supports several content types: [text](https://docs.microsoft.com/azure/cognitive-services/content-moderator/text-moderation-api), [images](https://docs.microsoft.com/azure/cognitive-services/content-moderator/image-moderation-api) and [videos](https://docs.microsoft.com/azure/cognitive-services/content-moderator/video-moderation-human-review). Text is the only content type covered in this architecture.
+The Azure Content Moderator detects profanity (masked or not) and PII. It supports several content types: [text](/azure/cognitive-services/content-moderator/text-moderation-api), [images](/azure/cognitive-services/content-moderator/image-moderation-api) and [videos](/azure/cognitive-services/content-moderator/video-moderation-human-review). Text is the only content type covered in this architecture.
 
 ## Deployment template
 
@@ -45,15 +45,15 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Create an Event Hub using Azure Resource Manager template](https://docs.microsoft.com/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
-> - [Automate resource deployment for your function app in Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
+> - [Create an Event Hub using Azure Resource Manager template](/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
+> - [Automate resource deployment for your function app in Azure Functions](/azure/azure-functions/functions-infrastructure-as-code)
 
 There are two types of Azure Cognitive Services subscriptions. The first is a subscription to a single service, such as Computer Vision or the Speech Services. A single-service subscription is restricted to just that service. The second type is a multi-service subscription. This allows you to use a single subscription for multiple Azure Cognitive Services. This option also consolidates billing. To make this reference architecture as modular as possible, the cognitive services are each setup as a single service.
 
-Finally, add these Function [application settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can connect to the Azure services:
+Finally, add these Function [application settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can connect to the Azure services:
 
-- EVENTHUB_CONNECTION_STRING = The [connection string](https://docs.microsoft.com/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created
-- CONTENTMODERATOR_KEY - The [access key](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings) used to access the Azure Content Moderator Cognitive Service that was created
+- EVENTHUB_CONNECTION_STRING = The [connection string](/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created
+- CONTENTMODERATOR_KEY - The [access key](/azure/azure-functions/functions-how-to-use-azure-function-app-settings) used to access the Azure Content Moderator Cognitive Service that was created
 
 >[!TIP]
 > To run the Azure Functions locally, update the *local.settings.json* file with these same app settings.
@@ -73,11 +73,11 @@ Finally, add these Function [application settings](https://docs.microsoft.com/az
 
 ### Azure Event Hubs
 
-See this [quickstart](https://docs.microsoft.com/azure/event-hubs/event-hubs-dotnet-framework-getstarted-send) for a simple implementation for sending an event to an Event Hub in multiple programming languages.  Some additional samples are available [here](https://github.com/Azure/azure-event-hubs/tree/master/samples).
+See this [quickstart](/azure/event-hubs/event-hubs-dotnet-framework-getstarted-send) for a simple implementation for sending an event to an Event Hub in multiple programming languages.  Some additional samples are available [here](https://github.com/Azure/azure-event-hubs/tree/master/samples).
 
 ### Function triggered by an Azure Event Hub to another Azure Event Hub
 
-When an [Event Hubs trigger Function](https://docs.microsoft.com/azure/azure-functions/functions-bindings-event-hubs#trigger) is triggered, the message that triggers it is passed into the Function as a string. Use the [Event Hubs output binding](https://docs.microsoft.com/azure/azure-functions/functions-bindings-event-hubs#output) to write events to an event stream.
+When an [Event Hubs trigger Function](/azure/azure-functions/functions-bindings-event-hubs#trigger) is triggered, the message that triggers it is passed into the Function as a string. Use the [Event Hubs output binding](/azure/azure-functions/functions-bindings-event-hubs#output) to write events to an event stream.
 
 ```csharp
 [return: EventHub("ehigce-output", Connection = "EventHubConnectionAppSetting")]
@@ -88,9 +88,9 @@ Check out the [common causes and solutions for 401 Access Denied errors when cal
 
 ## Security considerations
 
-Do not hard-code any Event Hub or Cognitive Services connection strings into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](https://docs.microsoft.com/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
+Do not hard-code any Event Hub or Cognitive Services connection strings into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
 
-Review the [Event Hub authentication and security model overview](https://docs.microsoft.com/azure/event-hubs/event-hubs-authentication-and-security-model-overview) and put it into practice to ensure only your chat server can talk to the Event Hub.
+Review the [Event Hub authentication and security model overview](/azure/event-hubs/event-hubs-authentication-and-security-model-overview) and put it into practice to ensure only your chat server can talk to the Event Hub.
 
 ## Scaling
 
@@ -101,11 +101,11 @@ There are two points that could become a bottleneck in this architecture that yo
 
 ## Alternatives
 
-You could consider leveraging [Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-overview) and [Azure Databricks](https://docs.microsoft.com/azure/azure-databricks/what-is-azure-databricks) if you are interested in gathering analytics using an Apache Spark-based platform.
+You could consider leveraging [Azure Cache for Redis](/azure/azure-cache-for-redis/cache-overview) and [Azure Databricks](/azure/azure-databricks/what-is-azure-databricks) if you are interested in gathering analytics using an Apache Spark-based platform.
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 

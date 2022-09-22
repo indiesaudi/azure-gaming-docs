@@ -21,10 +21,10 @@ Provide your players a conversational assistant tailored to your game that under
 
 ## Architecture Services
 
-- [Azure Bot Service](https://docs.microsoft.com/azure/bot-service/) - Azure out-of-the-box solution for building serverless and scalable bots.
-- [Azure Language Understanding (LUIS)](https://docs.microsoft.com/azure/cognitive-services/luis/what-is-luis) - Applies custom machine-learning intelligence to a user's conversational, natural language text to predict overall meaning, and pull out relevant, detailed information.
-- [Azure QnA Maker](https://docs.microsoft.com/azure/cognitive-services/QnAMaker/overview/overview) - Creates a question and answer repository of data based on information you provide.
-- [Azure Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/app-insights-overview) - Optionally used to monitor the customer service bot. It will automatically detect performance anomalies and help understand what users actually do with the bot.
+- [Azure Bot Service](/azure/bot-service/) - Azure out-of-the-box solution for building serverless and scalable bots.
+- [Azure Language Understanding (LUIS)](/azure/cognitive-services/luis/what-is-luis) - Applies custom machine-learning intelligence to a user's conversational, natural language text to predict overall meaning, and pull out relevant, detailed information.
+- [Azure QnA Maker](/azure/cognitive-services/QnAMaker/overview/overview) - Creates a question and answer repository of data based on information you provide.
+- [Azure Application Insights](/azure/azure-monitor/app/app-insights-overview) - Optionally used to monitor the customer service bot. It will automatically detect performance anomalies and help understand what users actually do with the bot.
 
 ## Architecture considerations
 
@@ -73,20 +73,20 @@ There are two tiers for QnA Maker.  Pease read through the pricing information f
 1. For the **Bot template** selection, select the **SDK v3** option and choose the **Language understanding** option.
 1. After the bot is created, go to the **Application settings** item in the Web App Bot you just created.
 1. Find the **LuisAppId** entry and set its value to the Application ID you received above in the LUIS steps.
-1. Modify the code as shown in [this article](https://docs.microsoft.com/azure/cognitive-services/QnAMaker/tutorials/integrate-qnamaker-luis#change-code-in-basicluisdialogcs).
+1. Modify the code as shown in [this article](/azure/cognitive-services/QnAMaker/tutorials/integrate-qnamaker-luis#change-code-in-basicluisdialogcs).
 1. With the code in place and built, you can test the bot using the **Test in Web Chat** option in the Azure portal.
 
 ### Channels
 
-In order for the public to use this bot, you will need to set up which "channels" it runs on.  Please see [this article](https://docs.microsoft.com/azure/bot-service/bot-service-manage-channels) for information on how to configure each channel.
+In order for the public to use this bot, you will need to set up which "channels" it runs on.  Please see [this article](/azure/bot-service/bot-service-manage-channels) for information on how to configure each channel.
 
 ## Additional Resources and Samples
 
-[Use bot with QnA Maker and LUIS to distribute your knowledge base](https://docs.microsoft.com/azure/cognitive-services/QnAMaker/tutorials/integrate-qnamaker-luis)
+[Use bot with QnA Maker and LUIS to distribute your knowledge base](/azure/cognitive-services/QnAMaker/tutorials/integrate-qnamaker-luis)
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures. See the pricing webpages for each of the services that were used in the reference architecture:
 
