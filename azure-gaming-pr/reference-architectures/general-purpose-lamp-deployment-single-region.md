@@ -11,7 +11,7 @@ ms.prod: azure-gaming
 
 # Deploy a single region LAMP architecture
 
-This document covers different methods to deploy a **single region LAMP architecture**, either using **command line tools** on either Bash, PowerShell or Windows Batch for a more hands on programmatic setup, or an Azure Resource Manager template for a **one-click deployment**. And in most cases there will be pointers to how to setup a certain portion of the architecture using the **Azure Portal**. Alternatively you can use third-party solutions like [Hashicorp Terraform](https://docs.microsoft.com/azure/terraform/terraform-overview) either using their [command line tools](https://docs.microsoft.com/azure/virtual-machines/linux/terraform-install-configure) or [automating your infrastructure deployments with Azure Pipelines](https://www.azuredevopslabs.com/labs/vstsextend/terraform/), for your guidance specific step by step Terraform's Azure Provider templates have been provided in this paper, you can also find more templates in [this link](https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples).
+This document covers different methods to deploy a **single region LAMP architecture**, either using **command line tools** on either Bash, PowerShell or Windows Batch for a more hands on programmatic setup, or an Azure Resource Manager template for a **one-click deployment**. And in most cases there will be pointers to how to setup a certain portion of the architecture using the **Azure Portal**. Alternatively you can use third-party solutions like [Hashicorp Terraform](/azure/terraform/terraform-overview) either using their [command line tools](/azure/virtual-machines/linux/terraform-install-configure) or [automating your infrastructure deployments with Azure Pipelines](https://www.azuredevopslabs.com/labs/vstsextend/terraform/), for your guidance specific step by step Terraform's Azure Provider templates have been provided in this paper, you can also find more templates in [this link](https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples).
 
 In general, when deploying a single region LAMP architecture there are certain steps that are mostly one-offs while others need to be executed in more regular basis as your backend gets updated to match your game requirements. Below is the full list of steps:
 
@@ -83,7 +83,7 @@ With batch files (also known as bat files) you can simplify routine or repetitiv
 Don't feel obliged to stick to Bash, PowerShell or Windows Batch for deploying the whole architecture end-to-end. You could complete a step like deploying the Azure Cache for Redis using Windows Batch and then switch to Bash to deploy Azure Database for MySQL, although it's not the standard.
 
 > [!IMPORTANT]
-> Should you choose to setup the architecture programmatically using a command line interface and the samples from this document, you are going to need to install either [Azure CLI](https://docs.microsoft.com/cli/azure/install-az-cli2), a cross-platform command-line tool providing a great experience for managing Azure resources, or [Azure PowerShell](https://docs.microsoft.com/powershell/azure/install-az-ps). They are both designed to make scripting easy, query data, support long-running operations, and more.
+> Should you choose to setup the architecture programmatically using a command line interface and the samples from this document, you are going to need to install either [Azure CLI](/cli/azure/install-az-cli2), a cross-platform command-line tool providing a great experience for managing Azure resources, or [Azure PowerShell](/powershell/azure/install-az-ps). They are both designed to make scripting easy, query data, support long-running operations, and more.
 
 ### Command line general configuration variables and tools
 
@@ -130,7 +130,7 @@ Here below are some examples of the region names currently available:
 | **Australia Central** | australiacentral |
 | **Australia Central 2** | australiacentral2 |
 
-More specifically you can also query what Azure regions support specific Azure Linux Virtual Machine types. Learn more about the [az-vm-list-skus](https://docs.microsoft.com/cli/azure/vm#az-vm-list-skus) Azure CLI and [Get-AzComputeResourceSku](https://docs.microsoft.com/powershell/module/az.compute/get-azcomputeresourcesku) PowerShell commands.
+More specifically you can also query what Azure regions support specific Azure Linux Virtual Machine types. Learn more about the [az-vm-list-skus](/cli/azure/vm#az-vm-list-skus) Azure CLI and [Get-AzComputeResourceSku](/powershell/module/az.compute/get-azcomputeresourcesku) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -196,7 +196,7 @@ SET PREFIX=myGameBackend
 This Virtual Machine only has one specific use: serve as a foundation for the custom golden image. In most cases, it gets deleted afterwards.
 
 > [!TIP]
-> When deploying a Virtual Machine, it's recommended to use SSH keys rather than password to protect the access. [Learn more](https://docs.microsoft.com/azure/virtual-machines/linux/create-ssh-keys-detailed).
+> When deploying a Virtual Machine, it's recommended to use SSH keys rather than password to protect the access. [Learn more](/azure/virtual-machines/linux/create-ssh-keys-detailed).
 
 Regardless of what method it's used to deploy the Virtual Machine on a Managed Disk, if you look within the resource group in the Azure Portal it should look like it's shown in the image below. The exposed resources created would be the Virtual Machine itself, a couple of disks (the one from the Operating System and another for the data), a public IP address, a Network Security Group, a Network Interface Controller (NIC) and finally a Virtual Network.
 
@@ -216,12 +216,12 @@ On top of the general configuration variables, the following variables are also 
 | **VMNAME** | myVirtualMachine | | | | The name of the Virtual Machine.
 | **VMNAME** | Canonical:UbuntuServer:16.04-LTS:latest | | | | The Linux OS that will be installed in the Virtual Machine.
 | **VMSIZE** | Standard_B1s | Standard_B1s | Standard_F16s_v2 | Standard_F32s_v2 | Virtual Machine option. Be aware that Premium SSD is not supported in every Virtual Machine option. [Learn more](https://azure.microsoft.com/pricing/details/virtual-machines/linux/#Linux).
-| **VMDATADISKSIZEINGB** | 5 | 5 | 10 | 30 | How much persistent disk storage you are going to allocate per Virtual Machine. [Benefits of using managed disks](https://docs.microsoft.com/azure/virtual-machines/windows/managed-disks-overview#benefits-of-managed-disks).
+| **VMDATADISKSIZEINGB** | 5 | 5 | 10 | 30 | How much persistent disk storage you are going to allocate per Virtual Machine. [Benefits of using managed disks](/azure/virtual-machines/windows/managed-disks-overview#benefits-of-managed-disks).
 
 > [!TIP]
 > In addition to the following documented individual commands and the order of execution, for you to understand each portion of a Virtual Machine deployment, you can download and tweak to your needs the full Bash [1-create-vm.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/1-create-vm.sh) or Windows Batch [1-create-vm.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/1-create-vm.bat) Azure CLI scripts or the [1-create-vm.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/1-create-vm.ps1) PowerShell script, to save you time.
 
-For more details about the process of deploying a Virtual Machine on a Managed Disk, refer to the [Create and Manage Linux VMs with the Azure CLI](https://docs.microsoft.com/azure/virtual-machines/linux/tutorial-manage-vm) tutorial that covers basic Azure virtual machine deployment items such as selecting a Virtual Machine type, selecting a Virtual Machine image, and deploying a VM.
+For more details about the process of deploying a Virtual Machine on a Managed Disk, refer to the [Create and Manage Linux VMs with the Azure CLI](/azure/virtual-machines/linux/tutorial-manage-vm) tutorial that covers basic Azure virtual machine deployment items such as selecting a Virtual Machine type, selecting a Virtual Machine image, and deploying a VM.
 
 #### Initialize the variables
 
@@ -262,7 +262,7 @@ SET VMDATADISKSIZEINGB=5
 
 #### Login
 
-Running this command will open a browser for you to log in with your Azure credentials. Learn more about the [az login](https://docs.microsoft.com/cli/azure/authenticate-azure-cli) Azure CLI and [Connect-AzAccount](https://docs.microsoft.com/powershell/module/az.accounts/connect-azaccount) PowerShell commands.
+Running this command will open a browser for you to log in with your Azure credentials. Learn more about the [az login](/cli/azure/authenticate-azure-cli) Azure CLI and [Connect-AzAccount](/powershell/module/az.accounts/connect-azaccount) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -286,7 +286,7 @@ CALL az login
 
 #### Set the Azure subscription
 
-If you only have subscription, this step is optional. Learn more about the [az account set](https://docs.microsoft.com/cli/azure/account#az-account-set) Azure CLI and [Set-AzContext](https://docs.microsoft.com/powershell/module/az.accounts/set-azcontext) PowerShell commands.
+If you only have subscription, this step is optional. Learn more about the [az account set](/cli/azure/account#az-account-set) Azure CLI and [Set-AzContext](/powershell/module/az.accounts/set-azcontext) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -313,7 +313,7 @@ CALL az account set ^
 
 #### Create a resource group
 
-All resources created in Azure need to be part of a resource group. Learn more about the [az group create](https://docs.microsoft.com/cli/azure/group#az-group-create) Azure CLI and [New-AzResourceGroup](https://docs.microsoft.com/powershell/module/Az.Resources/New-AzResourceGroup) PowerShell commands.
+All resources created in Azure need to be part of a resource group. Learn more about the [az group create](/cli/azure/group#az-group-create) Azure CLI and [New-AzResourceGroup](/powershell/module/Az.Resources/New-AzResourceGroup) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -345,7 +345,7 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#re
 
 #### Create a Virtual Machine
 
-This operation will take several minutes. Learn more about the [az vm create](https://docs.microsoft.com/cli/azure/vm#az-vm-create) Azure CLI and [New-AzVM](https://docs.microsoft.com/powershell/module/az.compute/new-azvm) PowerShell commands.
+This operation will take several minutes. Learn more about the [az vm create](/cli/azure/vm#az-vm-create) Azure CLI and [New-AzVM](/powershell/module/az.compute/new-azvm) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -392,7 +392,7 @@ CALL az vm create ^
 
 #### Open the ports 80 and 443
 
-Learn more about the [az vm open-port](https://docs.microsoft.com/cli/azure/vm#az-vm-open-port) Azure CLI command.
+Learn more about the [az vm open-port](/cli/azure/vm#az-vm-open-port) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -440,7 +440,7 @@ This Azure Resource Manager (ARM) template is an example template that deploys a
 
 ### Azure Portal
 
-Refer to [Create a Linux virtual machine in the Azure portal](https://docs.microsoft.com/azure/virtual-machines/linux/quick-create-portal) and [Attach a managed data disk to a VM by using the Azure portal](https://docs.microsoft.com/azure/virtual-machines/windows/attach-managed-disk-portal#add-a-data-disk) if you prefer to create the Virtual Machine manually using the Azure Portal.
+Refer to [Create a Linux virtual machine in the Azure portal](/azure/virtual-machines/linux/quick-create-portal) and [Attach a managed data disk to a VM by using the Azure portal](/azure/virtual-machines/windows/attach-managed-disk-portal#add-a-data-disk) if you prefer to create the Virtual Machine manually using the Azure Portal.
 
 ### Hashicorp Terraform
 
@@ -455,7 +455,7 @@ This [Hashicorp Terraform's Azure Provider template](https://github.com/Azure-Sa
 
 #### Command line approach using Azure CLI
 
-Learn more about the [az network public-ip list](https://docs.microsoft.com/cli/azure/network/public-ip#az-network-public-ip-list) Azure CLI and [Get-AzVM](https://docs.microsoft.com/powershell/module/az.compute/get-azvm) PowerShell commands.
+Learn more about the [az network public-ip list](/cli/azure/network/public-ip#az-network-public-ip-list) Azure CLI and [Get-AzVM](/powershell/module/az.compute/get-azvm) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -534,7 +534,7 @@ exit
 
 #### Azure Resource Manager template
 
-You could consider using the [Azure Custom Script Extension](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux) that downloads and runs scripts on Azure Virtual Machines. Click the following button that installs Apache and the PHP 7.3 version using Virtual Machine Custom Script Extension.
+You could consider using the [Azure Custom Script Extension](/azure/virtual-machines/extensions/custom-script-linux) that downloads and runs scripts on Azure Virtual Machines. Click the following button that installs Apache and the PHP 7.3 version using Virtual Machine Custom Script Extension.
 
 [![Deploy to Azure](media/deploytoazure.svg)](https://aka.ms/arm-gaming-lamp-install-apache-and-php)
 
@@ -580,7 +580,7 @@ Before creating an image it's needed to stop and prepare the Linux guest OS on t
 
 #### Command line approach using Azure CLI
 
-Learn more about the [az vm deallocate](https://docs.microsoft.com/cli/azure/vm#az-vm-deallocate), [az vm generalize](https://docs.microsoft.com/cli/azure/vm#az-vm-generalize) Azure CLI, and [Stop-AzVM](https://docs.microsoft.com/powershell/module/az.compute/stop-azvm) and [Set-AzVM](https://docs.microsoft.com/powershell/module/az.compute/set-azvm) PowerShell commands.
+Learn more about the [az vm deallocate](/cli/azure/vm#az-vm-deallocate), [az vm generalize](/cli/azure/vm#az-vm-generalize) Azure CLI, and [Stop-AzVM](/powershell/module/az.compute/stop-azvm) and [Set-AzVM](/powershell/module/az.compute/set-azvm) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -669,7 +669,7 @@ SET GOLDENIMAGENAME=myGoldenImage
 
 #### Create the custom golden image
 
-Learn more about the [az image create](https://docs.microsoft.com/cli/azure/image#az-image-create) Azure CLI and [New-AzImage](https://docs.microsoft.com/powershell/module/az.compute/new-azimage) PowerShell commands.
+Learn more about the [az image create](/cli/azure/image#az-image-create) Azure CLI and [New-AzImage](/powershell/module/az.compute/new-azimage) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -859,7 +859,7 @@ SET LBRULEHTTPSNAME=%LBNAME%HTTPSRule
 
 #### Create the Azure Virtual Network
 
-Learn more about the [az network vnet create](https://docs.microsoft.com/cli/azure/network/vnet#az-network-vnet-create) Azure CLI and [New-AzVirtualNetwork](https://docs.microsoft.com/powershell/module/az.network/new-azvirtualnetwork) PowerShell commands.
+Learn more about the [az network vnet create](/cli/azure/network/vnet#az-network-vnet-create) Azure CLI and [New-AzVirtualNetwork](/powershell/module/az.network/new-azvirtualnetwork) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -904,7 +904,7 @@ CALL az network vnet create ^
 
 #### Create an inbound public IP address for the load balancer
 
-Learn more about the [az network public-ip create](https://docs.microsoft.com/cli/azure/network/public-ip#az-network-public-ip-create) Azure CLI and [New-AzPublicIpAddress](https://docs.microsoft.com/powershell/module/az.network/new-azpublicipaddress) PowerShell commands.
+Learn more about the [az network public-ip create](/cli/azure/network/public-ip#az-network-public-ip-create) Azure CLI and [New-AzPublicIpAddress](/powershell/module/az.network/new-azpublicipaddress) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -944,7 +944,7 @@ CALL az network public-ip create ^
 
 #### Create an Azure Load Balancer
 
-Learn more about the [az network lb create](https://docs.microsoft.com/cli/azure/network/lb#az-network-lb-create) Azure CLI and [New-AzLoadBalancer](https://docs.microsoft.com/powershell/module/az.network/new-azloadbalancer) PowerShell commands.
+Learn more about the [az network lb create](/cli/azure/network/lb#az-network-lb-create) Azure CLI and [New-AzLoadBalancer](/powershell/module/az.network/new-azloadbalancer) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -990,7 +990,7 @@ CALL az network lb create ^
 
 #### Create an Azure Load Balancer health probe for HTTP
 
-Learn more about the [az network lb probe create](https://docs.microsoft.com/cli/azure/network/lb/probe#az-network-lb-probe-create) Azure CLI and [Add-AzLoadBalancerProbeConfig](https://docs.microsoft.com/powershell/module/az.network/add-azloadbalancerprobeconfig) PowerShell commands.
+Learn more about the [az network lb probe create](/cli/azure/network/lb/probe#az-network-lb-probe-create) Azure CLI and [Add-AzLoadBalancerProbeConfig](/powershell/module/az.network/add-azloadbalancerprobeconfig) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -1067,7 +1067,7 @@ if %LBSKU%==Standard CALL az network lb probe create ^
 
 #### Create an inbound NAT pool with backend port 22
 
-Learn more about the [az network lb inbound-nat-pool create](https://docs.microsoft.com/cli/azure/network/lb/inbound-nat-pool#az-network-lb-inbound-nat-pool-create) Azure CLI and [Add-AzLoadBalancerInboundNatPoolConfig](https://docs.microsoft.com/powershell/module/az.network/add-azloadbalancerinboundnatpoolconfig) PowerShell commands.
+Learn more about the [az network lb inbound-nat-pool create](/cli/azure/network/lb/inbound-nat-pool#az-network-lb-inbound-nat-pool-create) Azure CLI and [Add-AzLoadBalancerInboundNatPoolConfig](/powershell/module/az.network/add-azloadbalancerinboundnatpoolconfig) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -1114,7 +1114,7 @@ CALL az network lb inbound-nat-pool create ^
 
 #### Create a load balancing inbound rule for the port 80
 
-Learn more about the [az network lb rule create](https://docs.microsoft.com/cli/azure/network/lb/rule#az-network-lb-rule-create) Azure CLI and [Add-AzLoadBalancerRuleConfig](https://docs.microsoft.com/powershell/module/az.network/add-azloadbalancerruleconfig) PowerShell commands.
+Learn more about the [az network lb rule create](/cli/azure/network/lb/rule#az-network-lb-rule-create) Azure CLI and [Add-AzLoadBalancerRuleConfig](/powershell/module/az.network/add-azloadbalancerruleconfig) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -1232,7 +1232,7 @@ Click the following button to deploy the networking resources with an Azure Load
 
 ### Azure Portal
 
-Refer to [Create a Basic Load Balancer by using the Azure portal](https://docs.microsoft.com/azure/load-balancer/quickstart-create-basic-load-balancer-portal) and [Create a Standard Load Balancer to load balance VMs using the Azure portal](https://docs.microsoft.com/azure/load-balancer/quickstart-load-balancer-standard-public-portal) to learn how to create either Azure Load Balancer SKU using the Azure Portal.
+Refer to [Create a Basic Load Balancer by using the Azure portal](/azure/load-balancer/quickstart-create-basic-load-balancer-portal) and [Create a Standard Load Balancer to load balance VMs using the Azure portal](/azure/load-balancer/quickstart-load-balancer-standard-public-portal) to learn how to create either Azure Load Balancer SKU using the Azure Portal.
 
 ### Hashicorp Terraform
 
@@ -1270,7 +1270,7 @@ On top of the previously defined variables, the following variables are also bei
 | **REDISVMSIZE** | C1 | C3 | C4 | P4 | Basic/Standard(C0, C1, C2, C3, C4, C5, C6), Premium (P1, P2, P3, P4, P5)
 | **REDISSKU** | Standard | Standard | Standard | Premium | Basic – Single node, multiple sizes, ideal for development/test and non-critical workloads. The basic tier has no SLA.<br>Standard – A replicated cache in a two node Primary/Secondary configuration managed by Microsoft, with a high availability SLA.<br>Premium – The new Premium tier includes all the Standard-tier features and more, such as better performance compared to Basic or Standard-tier caches, bigger workloads, data persistence, and enhanced network security.
 | **REDISSHARDSTOCREATE** | | Note: Only Premium SKU | Note: Only Premium SKU | 10 | Number of shards per cluster.
-| **REDISSUBNETNAME** | | Note: Only Premium SKU | Note: Only Premium SKU | REDISNAME + Subnet | When an Azure Cache for Redis instance is configured with an Azure Virtual Network, it is not publicly addressable and can only be accessed from virtual machines and applications within the Azure Virtual Network. [Learn More](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-how-to-premium-vnet).
+| **REDISSUBNETNAME** | | Note: Only Premium SKU | Note: Only Premium SKU | REDISNAME + Subnet | When an Azure Cache for Redis instance is configured with an Azure Virtual Network, it is not publicly addressable and can only be accessed from virtual machines and applications within the Azure Virtual Network. [Learn More](/azure/azure-cache-for-redis/cache-how-to-premium-vnet).
 | **REDISSUBNETADDRESSPREFIX** | | Note: Only Premium SKU | Note: Only Premium SKU | 10.0.1.0/24 | **Important**: When deploying an Azure Cache for Redis to an Azure Virtual Network, the cache must be in a dedicated subnet that contains no other resources except for Azure Cache for Redis instances.
 | **SUBNETID** | | Note: Only Premium SKU | Note: Only Premium SKU | SUBNETID | Note: The full string is required.
 
@@ -1371,7 +1371,7 @@ CALL az network vnet subnet create ^
 
 #### Create an Azure Cache for Redis
 
-Learn more about the [az redis create](https://docs.microsoft.com/cli/azure/redis#az-redis-create) Azure CLI and [New-AzRedisCache](https://docs.microsoft.com/powershell/module/az.rediscache/new-azrediscache) PowerShell commands.
+Learn more about the [az redis create](/cli/azure/redis#az-redis-create) Azure CLI and [New-AzRedisCache](/powershell/module/az.rediscache/new-azrediscache) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -1504,11 +1504,11 @@ This Azure Resource Manager (ARM) template is an example template that deploys a
 
 ### Azure Portal
 
-Refer to [Create a cache](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-dotnet-how-to-use-azure-redis-cache#create-a-cache) to create an Azure Cache for Redis using the Azure Portal. Then refer to [How to configure Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-configure) that describes the configurations available for the Azure Cache for Redis instances.
+Refer to [Create a cache](/azure/azure-cache-for-redis/cache-dotnet-how-to-use-azure-redis-cache#create-a-cache) to create an Azure Cache for Redis using the Azure Portal. Then refer to [How to configure Azure Cache for Redis](/azure/azure-cache-for-redis/cache-configure) that describes the configurations available for the Azure Cache for Redis instances.
 
-Refer to [How to configure Redis clustering for a Premium Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-how-to-premium-clustering) that describes how to configure clustering in a premium Azure Cache for Redis instance using the Azure Portal.
+Refer to [How to configure Redis clustering for a Premium Azure Cache for Redis](/azure/azure-cache-for-redis/cache-how-to-premium-clustering) that describes how to configure clustering in a premium Azure Cache for Redis instance using the Azure Portal.
 
-Refer to [How to configure Virtual Network Support for a Premium Azure Cache for Redis](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-how-to-premium-vnet) that describes how to configure virtual network support for a premium Azure Cache for Redis instance using the Azure Portal.
+Refer to [How to configure Virtual Network Support for a Premium Azure Cache for Redis](/azure/azure-cache-for-redis/cache-how-to-premium-vnet) that describes how to configure virtual network support for a premium Azure Cache for Redis instance using the Azure Portal.
 
 ### Hashicorp Terraform
 
@@ -1542,10 +1542,10 @@ On top of the previously defined variables, the following variables are also bei
 | **MYSQLUSERNAME** | azuremysqluser | | | | The admin username to connect to the MySQL server.
 | **MYSQLPASSWORD** | CHang3thisP4Ssw0rD | | | | The admin password to connect to the MySQL server. Change it for whichever you consider, as robust as possible.
 | **MYSQLDBNAME** | gamedb | | | | The name of the game database.
-| **MYSQLBACKUPRETAINEDDAYS** | 7 | 7 | 15 | 30 | The backup retention period. [Learn more](https://docs.microsoft.com/azure/mysql/concepts-backup).
-| **MYSQLGEOREDUNDANTBACKUP** | Disabled | Disabled | Disabled | Enabled | [Learn more](https://docs.microsoft.com/azure/mysql/concepts-backup#backup-redundancy-options). Important: Configuring locally redundant or geo-redundant storage for backup is only allowed during server create. Once the server is provisioned, you cannot change the backup storage redundancy option.
-| **MYSQLSKU** | GP_Gen5_2 | GP_Gen5_2 | GP_Gen5_8 | MO_Gen5_16 | **Important**: There is a connection limit depending on the SKU type and number of cores. [Learn more](https://docs.microsoft.com/azure/mysql/concepts-pricing-tiers#storage).
-| **MYSQLSTORAGEMBSIZE** | 51200 | 8192 | 4096000 | 8192000 | Space and IOPS vary depending on the SKU and allocated storage size. [Learn more](https://docs.microsoft.com/azure/mysql/concepts-pricing-tiers#storage).
+| **MYSQLBACKUPRETAINEDDAYS** | 7 | 7 | 15 | 30 | The backup retention period. [Learn more](/azure/mysql/concepts-backup).
+| **MYSQLGEOREDUNDANTBACKUP** | Disabled | Disabled | Disabled | Enabled | [Learn more](/azure/mysql/concepts-backup#backup-redundancy-options). Important: Configuring locally redundant or geo-redundant storage for backup is only allowed during server create. Once the server is provisioned, you cannot change the backup storage redundancy option.
+| **MYSQLSKU** | GP_Gen5_2 | GP_Gen5_2 | GP_Gen5_8 | MO_Gen5_16 | **Important**: There is a connection limit depending on the SKU type and number of cores. [Learn more](/azure/mysql/concepts-pricing-tiers#storage).
+| **MYSQLSTORAGEMBSIZE** | 51200 | 8192 | 4096000 | 8192000 | Space and IOPS vary depending on the SKU and allocated storage size. [Learn more](/azure/mysql/concepts-pricing-tiers#storage).
 | **MYSQLVERSION** | 5.7 | 5.7 | 5.7 | 5.7 | MySQL version.
 | **MYSQLREADREPLICANAME** | | | MYSQLNAMEUNIQUE + Replica | MYSQLNAMEUNIQUE + Replica1 ... | Read replica MySQL name.
 | **MYSQLREADREPLICAREGION** | | | REGIONNAME | REGIONNAME | Azure region where the read replica will be deployed.
@@ -1653,7 +1653,7 @@ CALL az extension add --name db-up
 > [!NOTE]
 > In addition to creating the server, the Azure CLI `az mysql up` command creates a sample database, a root user in the database, opens the firewall for Azure services, and creates default firewall rules for the client computer. Also, Azure Database for MySQL doesn't have PowerShell commands yet.
 
-Learn more about the [az mysql up](https://docs.microsoft.com/cli/azure/ext/db-up/mysql#ext-db-up-az-mysql-up) Azure CLI and [New-AzResource](https://docs.microsoft.com/powershell/module/az.resources/new-azresource) PowerShell commands.
+Learn more about the [az mysql up](/cli/azure/ext/db-up/mysql#ext-db-up-az-mysql-up) Azure CLI and [New-AzResource](/powershell/module/az.resources/new-azresource) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -1757,11 +1757,11 @@ CALL az network vnet subnet create ^
 > [!IMPORTANT]
 > When using Azure CLI, **Microsoft.Sql** refers to the Azure service named SQL Database but this service tag also applies to the Azure SQL Database, Azure Database for PostgreSQL and MySQL services. It is important to note when applying the Microsoft.Sql service tag to a VNet service endpoint it configures service endpoint traffic for all Azure Database services, including Azure SQL Database, Azure Database for PostgreSQL and Azure Database for MySQL servers on the subnet.
 >
-> When using PowerShell, refer to [allow Azure services](https://docs.microsoft.com/azure/mysql/howto-connect-webapp#solution-1---allow-azure-services) to read how to allow Azure services to connect to the Azure Database for MySQL that you just deployed.
+> When using PowerShell, refer to [allow Azure services](/azure/mysql/howto-connect-webapp#solution-1---allow-azure-services) to read how to allow Azure services to connect to the Azure Database for MySQL that you just deployed.
 
 #### Create a Virtual Network rule on the MySQL server to secure it to the subnet
 
-Learn more about the [az mysql server vnet-rule create](https://docs.microsoft.com/cli/azure/mysql/server/vnet-rule#az-mysql-server-vnet-rule-create) Azure CLI command.
+Learn more about the [az mysql server vnet-rule create](/cli/azure/mysql/server/vnet-rule#az-mysql-server-vnet-rule-create) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -1793,7 +1793,7 @@ CALL az mysql server vnet-rule create ^
 
 #### Create a read replica using the MySQL server as a source (master)
 
-Learn more about the [az mysql server replica create](https://docs.microsoft.com/cli/azure/mysql/server/replica#az-mysql-server-replica-create) Azure CLI command.
+Learn more about the [az mysql server replica create](/cli/azure/mysql/server/replica#az-mysql-server-replica-create) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -1829,11 +1829,11 @@ This Azure Resource Manager (ARM) template is an example template that deploys a
 
 ### Azure Portal
 
-Refer to [Design an Azure Database for MySQL database using the Azure portal](https://docs.microsoft.com/azure/mysql/tutorial-design-database-using-portal), to learn how to create and manage your server, configure the firewall and setup the database.
+Refer to [Design an Azure Database for MySQL database using the Azure portal](/azure/mysql/tutorial-design-database-using-portal), to learn how to create and manage your server, configure the firewall and setup the database.
 
-Refer to [How to create and manage read replicas in Azure Database for MySQL using the Azure portal](https://docs.microsoft.com/azure/mysql/howto-read-replicas-portal), to learn how to create and manage read replicas in the Azure Database for MySQL service using the Azure Portal.
+Refer to [How to create and manage read replicas in Azure Database for MySQL using the Azure portal](/azure/mysql/howto-read-replicas-portal), to learn how to create and manage read replicas in the Azure Database for MySQL service using the Azure Portal.
 
-Refer to [Create and manage Azure Database for MySQL VNet service endpoints and VNet rules by using the Azure portal](https://docs.microsoft.com/azure/mysql/howto-manage-vnet-using-portal?toc=%2fazure%2fvirtual-network%2ftoc.json), to learn how to enable security measures for your database.
+Refer to [Create and manage Azure Database for MySQL VNet service endpoints and VNet rules by using the Azure portal](/azure/mysql/howto-manage-vnet-using-portal?toc=%2fazure%2fvirtual-network%2ftoc.json), to learn how to enable security measures for your database.
 
 ### Hashicorp Terraform
 
@@ -1921,7 +1921,7 @@ SET STORAGERULENAME=%STORAGENAME%Rule
 
 #### Create a storage account
 
-Learn more about the [az storage account create](https://docs.microsoft.com/cli/azure/storage/account#az-storage-account-create) Azure CLI and [New-AzStorageAccount](https://docs.microsoft.com/powershell/module/az.storage/new-azstorageaccount) PowerShell commands.
+Learn more about the [az storage account create](/cli/azure/storage/account#az-storage-account-create) Azure CLI and [New-AzStorageAccount](/powershell/module/az.storage/new-azstorageaccount) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -1979,7 +1979,7 @@ CALL DEL connectionstring.tmp
 
 #### Create a storage container into the storage account
 
-Learn more about the [az storage container create](https://docs.microsoft.com/cli/azure/storage/container#az-storage-container-create) Azure CLI and [New-AzRmStorageContainer](https://docs.microsoft.com/powershell/module/az.storage/new-azrmstoragecontainer) PowerShell commands.
+Learn more about the [az storage container create](/cli/azure/storage/container#az-storage-container-create) Azure CLI and [New-AzRmStorageContainer](/powershell/module/az.storage/new-azrmstoragecontainer) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -2055,7 +2055,7 @@ CALL az network vnet subnet create ^
 
 #### Add a network rule for a virtual network and subnet
 
-Learn more about the [az storage account network-rule add](https://docs.microsoft.com/cli/azure/storage/account/network-rule#az-storage-account-network-rule-add) Azure CLI and [Add-AzStorageAccountNetworkRule](https://docs.microsoft.com/powershell/module/az.storage/add-azstorageaccountnetworkrule) PowerShell commands.
+Learn more about the [az storage account network-rule add](/cli/azure/storage/account/network-rule#az-storage-account-network-rule-add) Azure CLI and [Add-AzStorageAccountNetworkRule](/powershell/module/az.storage/add-azstorageaccountnetworkrule) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -2098,9 +2098,9 @@ This ARM template is an example template that deploys an Azure storage account, 
 
 ### Azure Portal
 
-Refer to [Create a storage account](https://docs.microsoft.com/azure/storage/common/storage-quickstart-create-account?tabs=azure-portal#create-a-storage-account-1), showing you how to create an Azure Storage account using the Azure Portal.
+Refer to [Create a storage account](/azure/storage/common/storage-quickstart-create-account?tabs=azure-portal#create-a-storage-account-1), showing you how to create an Azure Storage account using the Azure Portal.
 
-Refer to [Create a container](https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-portal#create-a-container), showing you how to create an storage containe in the Azure portal.
+Refer to [Create a container](/azure/storage/blobs/storage-quickstart-blobs-portal#create-a-container), showing you how to create an storage containe in the Azure portal.
 
 ### Hashicorp Terraform
 
@@ -2140,7 +2140,7 @@ On top of the previously defined variables, the following variables are also bei
 | **VMSSSKUSIZE** | Standard_B1s | Standard_B1s | Standard_F16s_v2 | Standard_F32s_v2 | The SKU to setup, either standard, premium or ultra.
 | **VMSSVMTOCREATE** | 2 | 2 | 20 | 50 | The number of Virtual Machine instances that will be deployed upon creation of the scale set.
 | **VMSSSTORAGESKU** | Standard_LRS | Standard_LRS | Premium_LRS | Premium_LRS | The storage SKU to setup, either standard, premium or ultra.
-| **VMSSACELERATEDNETWORKING** | false | false | true | true | [Learn more](https://docs.microsoft.com/azure/virtual-network/create-vm-accelerated-networking-cli#benefits) about the benefits of accelerated networking.
+| **VMSSACELERATEDNETWORKING** | false | false | true | true | [Learn more](/azure/virtual-network/create-vm-accelerated-networking-cli#benefits) about the benefits of accelerated networking.
 | **VMSSUPGRADEPOLICY** | Manual | Manual | Rolling | Rolling | Manual, Automatic or Rolling. Explained above.
 | **HEALTHPROBEID** |  |  | Use the health probe ID | Use the health probe ID | Required if Rolling upgrade mode.
 
@@ -2209,7 +2209,7 @@ SET VMSSOVERPROVISIONING=--disable-overprovision
 
 #### Create a scale set
 
-Learn more about the [az-vmss-create](https://docs.microsoft.com/cli/azure/vmss#az-vmss-create) Azure CLI and [New-AzVmss](https://docs.microsoft.com/powershell/module/az.compute/new-azvmss) PowerShell commands.
+Learn more about the [az-vmss-create](/cli/azure/vmss#az-vmss-create) Azure CLI and [New-AzVmss](/powershell/module/az.compute/new-azvmss) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -2336,7 +2336,7 @@ CALL az vmss show ^
 
 #### Associate the load balancer health probe to the scale set
 
-Learn more about the [az vmss update](https://docs.microsoft.com/cli/azure/vmss#az-vmss-update) Azure CLI command.
+Learn more about the [az vmss update](/cli/azure/vmss#az-vmss-update) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -2366,7 +2366,7 @@ CALL az vmss update ^
 
 #### Update all the instances from the scale set
 
-Learn more about the [az vmss update-instances](https://docs.microsoft.com/cli/azure/vmss#az-vmss-update-instances) Azure CLI command.
+Learn more about the [az vmss update-instances](/cli/azure/vmss#az-vmss-update-instances) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -2445,7 +2445,7 @@ This ARM template is an example template that deploys an Azure virtual machine s
 
 ### Azure Portal
 
-Refer to [Create a virtual machine scale set in the Azure portal](https://docs.microsoft.com/azure/virtual-machine-scale-sets/quick-create-portal) to learn how to deploy a VM scale set using the Azure Portal.
+Refer to [Create a virtual machine scale set in the Azure portal](/azure/virtual-machine-scale-sets/quick-create-portal) to learn how to deploy a VM scale set using the Azure Portal.
 
 ### Hashicorp Terraform
 
@@ -2472,11 +2472,11 @@ On top of the previously defined variables, the following variables are also bei
 |Variable|Default value|Small configuration|Medium configuration|Large configuration|Description|
 |----------|----------|-----------|----------|----------|-----------|
 | **VMSSAUTOSCALERNAME** | PREFIX + Autoscaler | | | | The name of the autoscaler.
-| **VMSSAUTOSCALERCRITERIA** | Percentage CPU | Percentage CPU | Percentage CPU | Percentage CPU | The general criteria that will be used to trigger the autoscaler. [Learn more](https://docs.microsoft.com/azure/azure-monitor/platform/metrics-supported#microsoftcomputevirtualmachinescalesets).
+| **VMSSAUTOSCALERCRITERIA** | Percentage CPU | Percentage CPU | Percentage CPU | Percentage CPU | The general criteria that will be used to trigger the autoscaler. [Learn more](/azure/azure-monitor/platform/metrics-supported#microsoftcomputevirtualmachinescalesets).
 | **VMSSAUTOSCALERMAXCOUNT** | 10 | 10 | 15 | 40 | The maximum number of Virtual Machines that will be part of the scale set. After that number is reached, the autoscaler won't create more.
 | **VMSSAUTOSCALERMINCOUNT** | 2 | 2 | 10 | 20 | The minimum number of Virtual Machines that will be part of the scale set. After that number is reached, the autoscaler won't switch off any more. Usually matches VMSSVMTOCREATE
-| **VMSSAUTOSCALERUPTRIGGER** | 50 avg 5m | 50 avg 5m | 50 avg 5m | 50 avg 5m | Condition to trigger the scaling out operation. [Learn more](https://docs.microsoft.com/Azure/azure-monitor/platform/autoscale-best-practices) about best practices.
-| **VMSSAUTOSCALERDOWNTRIGGER** | 30 avg 5m | 30 avg 5m | 30 avg 5m | 30 avg 5m | Condition to trigger the scaling in operation. [Learn more](https://docs.microsoft.com/Azure/azure-monitor/platform/autoscale-best-practices) about best practices.
+| **VMSSAUTOSCALERUPTRIGGER** | 50 avg 5m | 50 avg 5m | 50 avg 5m | 50 avg 5m | Condition to trigger the scaling out operation. [Learn more](/Azure/azure-monitor/platform/autoscale-best-practices) about best practices.
+| **VMSSAUTOSCALERDOWNTRIGGER** | 30 avg 5m | 30 avg 5m | 30 avg 5m | 30 avg 5m | Condition to trigger the scaling in operation. [Learn more](/Azure/azure-monitor/platform/autoscale-best-practices) about best practices.
 | **VMSSAUTOSCALEROUTINCREASE** | 1 | 1 | 2 | 3 | How many new instances will be added to the scale set upon being triggered the scale out request.
 | **VMSSAUTOSCALERINDECREASE** | 1 | 1 | 2 | 3 | How many instances will be removed from  the scale set upon being triggered the scale in request.
 
@@ -2530,7 +2530,7 @@ SET VMSSAUTOSCALERINDECREASE=1
 
 #### Define the autoscaling profile
 
-Learn more about the [az monitor autoscale create](https://docs.microsoft.com/cli/azure/monitor/autoscale#az-monitor-autoscale-create) Azure CLI command.
+Learn more about the [az monitor autoscale create](/cli/azure/monitor/autoscale#az-monitor-autoscale-create) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -2566,7 +2566,7 @@ CALL az monitor autoscale create ^
 
 #### Enable virtual machine autoscaler for scaling out
 
-Learn more about the [az monitor autoscale rule create](https://docs.microsoft.com/cli/azure/monitor/autoscale/rule#az-monitor-autoscale-rule-create) Azure CLI and [New-AzAutoscaleRule](https://docs.microsoft.com/powershell/module/az.monitor/new-azautoscalerule) PowerShell commands.
+Learn more about the [az monitor autoscale rule create](/cli/azure/monitor/autoscale/rule#az-monitor-autoscale-rule-create) Azure CLI and [New-AzAutoscaleRule](/powershell/module/az.monitor/new-azautoscalerule) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -2670,7 +2670,7 @@ This ARM template is an example template that defines the autoscaling profile, e
 
 ### Azure Portal
 
-Refer to [Automatically scale a virtual machine scale set in the Azure portal](https://docs.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal), showing you how to create autoscale rules in the Azure Portal.
+Refer to [Automatically scale a virtual machine scale set in the Azure portal](/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal), showing you how to create autoscale rules in the Azure Portal.
 
 ### Hashicorp Terraform
 
@@ -2680,7 +2680,7 @@ This [Hashicorp Terraform's Azure Provider template](https://github.com/Azure-Sa
 
 ## 11. Enable protection against DDoS attacks
 
-Distributed denial of service (DDoS) attacks are some of the largest availability and security concerns facing game studios that are moving their backends to the cloud. DDoS Protection Standard protects resources in a virtual network including public IP addresses associated with virtual machines and load balancers. [Learn more](https://docs.microsoft.com/azure/virtual-network/ddos-protection-overview).
+Distributed denial of service (DDoS) attacks are some of the largest availability and security concerns facing game studios that are moving their backends to the cloud. DDoS Protection Standard protects resources in a virtual network including public IP addresses associated with virtual machines and load balancers. [Learn more](/azure/virtual-network/ddos-protection-overview).
 
 ### Command line approach using Azure CLI
 
@@ -2714,7 +2714,7 @@ SET DDOSPROTECTIONNAME=%PREFIX%DdosPlan
 
 #### Create the DDoS protection plan
 
-Learn more about the [az network ddos-protection create](https://docs.microsoft.com/cli/azure/network/ddos-protection#az-network-ddos-protection-create) Azure CLI and [New-AzDdosProtectionPlan](https://docs.microsoft.com/powershell/module/az.network/new-azddosprotectionplan) PowerShell commands.
+Learn more about the [az network ddos-protection create](/cli/azure/network/ddos-protection#az-network-ddos-protection-create) Azure CLI and [New-AzDdosProtectionPlan](/powershell/module/az.network/new-azddosprotectionplan) PowerShell commands.
 
 # [Bash](#tab/bash)
 
@@ -2787,7 +2787,7 @@ This ARM template is an example template that creates a DDoS protection plan and
 
 ### Azure Portal
 
-Refer to [Manage Azure DDoS Protection Standard using the Azure portal](https://docs.microsoft.com/azure/virtual-network/manage-ddos-protection) to learn how to enable AzureDDoS Standard Protection via Azure Portal.
+Refer to [Manage Azure DDoS Protection Standard using the Azure portal](/azure/virtual-network/manage-ddos-protection) to learn how to enable AzureDDoS Standard Protection via Azure Portal.
 
 ### Hashicorp Terraform
 
@@ -2856,7 +2856,7 @@ SET SERVICETORESTART=apache2.service
 
 #### Get the connection string from the storage account
 
-Learn more about the [az storage account show-connection-string](https://docs.microsoft.com/cli/azure/storage/account#az-storage-account-show-connection-string) Azure CLI command.
+Learn more about the [az storage account show-connection-string](/cli/azure/storage/account#az-storage-account-show-connection-string) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -2886,7 +2886,7 @@ CALL DEL connectionstring.tmp
 
 #### Upload both the application files and update application script to the blob storage
 
-Learn more about the [az storage blob upload](https://docs.microsoft.com/cli/azure/storage/blob#az-storage-blob-upload) Azure CLI command.
+Learn more about the [az storage blob upload](/cli/azure/storage/blob#az-storage-blob-upload) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -2938,7 +2938,7 @@ CALL az storage blob upload ^
 
 #### Get the URLs from the uploaded files
 
-Learn more about the [az storage blob url](https://docs.microsoft.com/cli/azure/storage/blob#az-storage-blob-url) Azure CLI command.
+Learn more about the [az storage blob url](/cli/azure/storage/blob#az-storage-blob-url) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -2970,7 +2970,7 @@ CALL DEL scripturl.tmp
 
 #### Build the Protected Settings JSON string
 
-This will be  used by the Custom Script Extension to download the file or files from the storage account. [Learn more about this command](https://docs.microsoft.com/cli/azure/storage/account/keys#az-storage-account-keys-list)
+This will be  used by the Custom Script Extension to download the file or files from the storage account. [Learn more about this command](/cli/azure/storage/account/keys#az-storage-account-keys-list)
 
 # [Bash](#tab/bash)
 
@@ -3003,7 +3003,7 @@ SET SETTINGS="{\"fileUris\":[\"%BLOBURL%\",\"%SCRIPTURL%\"],\"commandToExecute\"
 
 #### Update the configuration file from the scale set
 
-Learn more about the [az vmss extension set](https://docs.microsoft.com/cli/azure/vmss/extension#az-vmss-extension-set) Azure CLI command.
+Learn more about the [az vmss extension set](/cli/azure/vmss/extension#az-vmss-extension-set) Azure CLI command.
 
 # [Bash](#tab/bash)
 
@@ -3051,7 +3051,7 @@ CALL az vmss extension set ^
 
 #### Update all the instances from the scale set
 
-This will ensure that in the next update round they download and install the files uploaded to the storage account. [Learn more about this command](https://docs.microsoft.com/cli/azure/vmss#az-vmss-update-instances).
+This will ensure that in the next update round they download and install the files uploaded to the storage account. [Learn more about this command](/cli/azure/vmss#az-vmss-update-instances).
 
 # [Bash](#tab/bash)
 
@@ -3098,7 +3098,7 @@ This [Hashicorp Terraform's Azure Provider template](https://github.com/Azure-Sa
 
 ## Application layer
 
-- This [quickstart](https://docs.microsoft.com/azure/mysql/connect-php) demonstrates how to connect to an Azure Database for MySQL using a PHP application. It shows how to use SQL statements to query, insert, update, and delete data in the database. This topic assumes that you are familiar with development using PHP and that you are new to working with Azure Database for MySQL.
+- This [quickstart](/azure/mysql/connect-php) demonstrates how to connect to an Azure Database for MySQL using a PHP application. It shows how to use SQL statements to query, insert, update, and delete data in the database. This topic assumes that you are familiar with development using PHP and that you are new to working with Azure Database for MySQL.
 - The [Retwis](https://github.com/SyntaxC4-MSFT/retwis) sample is the Redis Hello World. It is a minimal Twitter-style social network clone written using Redis and PHP using the Predis client. The source code is designed to be very simple and at the same time to show different Redis data structures.
 - View, download, and install the [PHP client library source code](https://github.com/Azure/azure-storage-php) for Azure Storage on GitHub.
 - Explore [Blob storage samples](https://azure.microsoft.com/resources/samples/?sort=0&service=storage&platform=php&term=blob) written using the PHP client library.
@@ -3117,15 +3117,15 @@ This table summarizes the scripts and templates available for steps covered in t
 
 | Action | Azure CLI | Azure PowerShell | ARM Template | Hashicorp Terraform| Portal |
 |--------|--------|--------|--------|--------|--------|
-| **Deploy a Virtual Machine on a Managed Disk** | [1-create-vm.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/1-create-vm.sh)<br>[1-create-vm.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/1-create-vm.bat) | [1-create-vm.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/1-create-vm.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-vm" target="_blank">Deploy</a> | [1-create-vm.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/1-create-vm.tf) | [Create VM](https://docs.microsoft.com/azure/virtual-machines/linux/quick-create-portal), [Attach Managed data disk](https://docs.microsoft.com/azure/virtual-machines/windows/attach-managed-disk-portal#add-a-data-disk)
+| **Deploy a Virtual Machine on a Managed Disk** | [1-create-vm.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/1-create-vm.sh)<br>[1-create-vm.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/1-create-vm.bat) | [1-create-vm.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/1-create-vm.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-vm" target="_blank">Deploy</a> | [1-create-vm.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/1-create-vm.tf) | [Create VM](/azure/virtual-machines/linux/quick-create-portal), [Attach Managed data disk](/azure/virtual-machines/windows/attach-managed-disk-portal#add-a-data-disk)
 | **Install Apache, PHP and other stuff you consider** | [2-install-apache-and-php.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/scripts/2-install-apache-and-php.sh) | N/A | <a href="https://aka.ms/arm-gaming-lamp-install-apache-and-php" target="_blank">Deploy</a> | [2-install-apache-and-php.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/2-install-apache-and-php.tf) | N/A
 | **Deallocate and generalize the Virtual Machine** | [3-prepare-vm.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/3-prepare-vm.sh)<br>[3-prepare-vm.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/3-prepare-vm.bat) | [3-prepare-vm.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/3-prepare-vm.ps1) | N/A | N/A | N/A
 | **Generate the custom golden image** | [4-create-golden-image.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/4-create-golden-image.sh)<br>[4-create-golden-image.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/4-create-golden-image.bat) | [4-create-golden-image.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/4-create-golden-image.ps1) | N/A | [4-create-golden-image.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/4-create-golden-image.tf) | N/A
-| **Deploy the networking resources** | [5-create-networking.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/5-create-networking.sh)<br>[5-create-networking.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/5-create-networking.bat) | [5-create-networking.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/5-create-networking.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-networking" target="_blank">Deploy Basic LB</a><br><a href="https://aka.ms/arm-gaming-lamp-create-networking-standard" target="_blank">Deploy Standard LB</a> | [5-create-networking.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/5-create-networking.tf)<br>[5-create-networking-standard.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/5-create-networking-standard.tf) | [Basic](https://docs.microsoft.com/azure/load-balancer/quickstart-create-basic-load-balancer-portal), [Standard](https://docs.microsoft.com/azure/load-balancer/quickstart-load-balancer-standard-public-portal)
-| **Deploy the Azure Cache for Redis** | [6-create-redis.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/6-create-redis.sh)<br>[6-create-redis.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/6-create-redis.bat) | [6-create-redis.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/6-create-redis.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-redis" target="_blank">Deploy</a> | [6-create-redis.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/6-create-redis.tf) | [Create a cache](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-dotnet-how-to-use-azure-redis-cache#create-a-cache), [Configure cache](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-configure), [Clustering setup](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-how-to-premium-clustering), [VNET support](https://docs.microsoft.com/azure/azure-cache-for-redis/cache-how-to-premium-vnet)
-| **Deploy the Azure Database for MySQL** | [7-create-mysql.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/7-create-mysql.sh)<br>[7-create-mysql.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/7-create-mysql.bat) | [7-create-mysql.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/7-create-mysql.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-mysql" target="_blank">Deploy</a> | [7-create-mysql.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/7-create-mysql.tf) | [Create server](https://docs.microsoft.com/azure/mysql/tutorial-design-database-using-portal), [Create read replicas](https://docs.microsoft.com/azure/mysql/howto-read-replicas-portal), [Create service endpoint](https://docs.microsoft.com/azure/mysql/howto-manage-vnet-using-portal?toc=%2fazure%2fvirtual-network%2ftoc.json)
-| **Create the Azure Storage account and container** | [8-create-storage.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/8-create-storage.sh)<br>[8-create-storage.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/8-create-storage.bat) | [8-create-storage.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/8-create-storage.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-storage" target="_blank">Deploy</a> | [8-create-storage.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/8-create-storage.tf) | [Create storage account](https://docs.microsoft.com/azure/storage/common/storage-quickstart-create-account?tabs=azure-portal#create-a-storage-account-1), [Create container](https://docs.microsoft.com/azure/storage/blobs/storage-quickstart-blobs-portal#create-a-container)
-| **Create the Virtual Machine Scale Set** | [9-create-vmss.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/9-create-vmss.sh)<br>[9-create-vmss.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/9-create-vmss.bat) | [9-create-vmss.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/9-create-vmss.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-vmss" target="_blank">Deploy</a> | [9-create-vmss.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/9-create-vmss.tf) | [Create scale set](https://docs.microsoft.com/azure/virtual-machine-scale-sets/quick-create-portal)
-| **Setup the autoscale settings** | [10-create-autoscaler.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/10-create-autoscaler.sh)<br>[10-create-autoscaler.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/10-create-autoscaler.bat) | [10-create-autoscaler.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/10-create-autoscaler.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-autoscaler" target="_blank">Deploy</a> | [10-create-autoscaler.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/10-create-autoscaler.tf) | [Autoscale scale set](https://docs.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal)
-| **Enable protection against DDoS attacks** | [11-enable-ddos-protection.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/11-enable-ddos-protection.sh)<br>[11-enable-ddos-protection.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/11-enable-ddos-protection.bat) | [11-enable-ddos-protection.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/11-enable-ddos-protection.ps1) | <a href="https://aka.ms/arm-gaming-lamp-enable-ddos-protection" target="_blank">Deploy</a> | [11-enable-ddos-protection.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/11-enable-ddos-protection.tf) | [Create DDoS plan](https://docs.microsoft.com/azure/virtual-network/manage-ddos-protection)
+| **Deploy the networking resources** | [5-create-networking.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/5-create-networking.sh)<br>[5-create-networking.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/5-create-networking.bat) | [5-create-networking.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/5-create-networking.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-networking" target="_blank">Deploy Basic LB</a><br><a href="https://aka.ms/arm-gaming-lamp-create-networking-standard" target="_blank">Deploy Standard LB</a> | [5-create-networking.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/5-create-networking.tf)<br>[5-create-networking-standard.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/5-create-networking-standard.tf) | [Basic](/azure/load-balancer/quickstart-create-basic-load-balancer-portal), [Standard](/azure/load-balancer/quickstart-load-balancer-standard-public-portal)
+| **Deploy the Azure Cache for Redis** | [6-create-redis.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/6-create-redis.sh)<br>[6-create-redis.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/6-create-redis.bat) | [6-create-redis.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/6-create-redis.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-redis" target="_blank">Deploy</a> | [6-create-redis.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/6-create-redis.tf) | [Create a cache](/azure/azure-cache-for-redis/cache-dotnet-how-to-use-azure-redis-cache#create-a-cache), [Configure cache](/azure/azure-cache-for-redis/cache-configure), [Clustering setup](/azure/azure-cache-for-redis/cache-how-to-premium-clustering), [VNET support](/azure/azure-cache-for-redis/cache-how-to-premium-vnet)
+| **Deploy the Azure Database for MySQL** | [7-create-mysql.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/7-create-mysql.sh)<br>[7-create-mysql.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/7-create-mysql.bat) | [7-create-mysql.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/7-create-mysql.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-mysql" target="_blank">Deploy</a> | [7-create-mysql.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/7-create-mysql.tf) | [Create server](/azure/mysql/tutorial-design-database-using-portal), [Create read replicas](/azure/mysql/howto-read-replicas-portal), [Create service endpoint](/azure/mysql/howto-manage-vnet-using-portal?toc=%2fazure%2fvirtual-network%2ftoc.json)
+| **Create the Azure Storage account and container** | [8-create-storage.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/8-create-storage.sh)<br>[8-create-storage.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/8-create-storage.bat) | [8-create-storage.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/8-create-storage.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-storage" target="_blank">Deploy</a> | [8-create-storage.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/8-create-storage.tf) | [Create storage account](/azure/storage/common/storage-quickstart-create-account?tabs=azure-portal#create-a-storage-account-1), [Create container](/azure/storage/blobs/storage-quickstart-blobs-portal#create-a-container)
+| **Create the Virtual Machine Scale Set** | [9-create-vmss.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/9-create-vmss.sh)<br>[9-create-vmss.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/9-create-vmss.bat) | [9-create-vmss.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/9-create-vmss.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-vmss" target="_blank">Deploy</a> | [9-create-vmss.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/9-create-vmss.tf) | [Create scale set](/azure/virtual-machine-scale-sets/quick-create-portal)
+| **Setup the autoscale settings** | [10-create-autoscaler.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/10-create-autoscaler.sh)<br>[10-create-autoscaler.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/10-create-autoscaler.bat) | [10-create-autoscaler.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/10-create-autoscaler.ps1) | <a href="https://aka.ms/arm-gaming-lamp-create-autoscaler" target="_blank">Deploy</a> | [10-create-autoscaler.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/10-create-autoscaler.tf) | [Autoscale scale set](/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-portal)
+| **Enable protection against DDoS attacks** | [11-enable-ddos-protection.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/11-enable-ddos-protection.sh)<br>[11-enable-ddos-protection.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/11-enable-ddos-protection.bat) | [11-enable-ddos-protection.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/11-enable-ddos-protection.ps1) | <a href="https://aka.ms/arm-gaming-lamp-enable-ddos-protection" target="_blank">Deploy</a> | [11-enable-ddos-protection.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/11-enable-ddos-protection.tf) | [Create DDoS plan](/azure/virtual-network/manage-ddos-protection)
 | **Update the Virtual Machine instances** | [12-update-app.sh](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/bash/12-update-app.sh)<br>[12-update-app.bat](https://github.com/Azure-Samples/gaming-lamp/blob/master/azurecli/windowsbatch/12-update-app.bat) | [12-update-app.ps1](https://github.com/Azure-Samples/gaming-lamp/blob/master/powershell/12-update-app.ps1) | <a href="https://aka.ms/arm-gaming-lamp-update-app" target="_blank">Deploy</a> | [12-update-app.tf](https://github.com/Azure-Samples/gaming-lamp/blob/master/terraform/12-update-app.tf) | N/A
