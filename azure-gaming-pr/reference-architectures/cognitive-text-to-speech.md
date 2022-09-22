@@ -11,9 +11,9 @@ ms.prod: azure-gaming
 
 # Text-to-Speech Reference Architecture
 
-Help bring everyone into the conversation by converting text messages to audio using **Text-to-Speech** for scenarios, such as game dialogue prototyping, greater accessibility, or NPC voices. Text-to-Speech includes prebuilt neural voice and custom neural voice features. Prebuilt neural voice can provide highly natural out-of-box voices with leading voice variety in terms of a large portfolio of languages and voices. Custom neural voice is an easy-to-use self-service for creating a highly natural custom voice. For details on the two features and voice samples, see [Text-to-Speech overview](https://docs.microsoft.com/azure/cognitive-services/speech-service/text-to-speech).
+Help bring everyone into the conversation by converting text messages to audio using **Text-to-Speech** for scenarios, such as game dialogue prototyping, greater accessibility, or NPC voices. Text-to-Speech includes prebuilt neural voice and custom neural voice features. Prebuilt neural voice can provide highly natural out-of-box voices with leading voice variety in terms of a large portfolio of languages and voices. Custom neural voice is an easy-to-use self-service for creating a highly natural custom voice. For details on the two features and voice samples, see [Text-to-Speech overview](/azure/cognitive-services/speech-service/text-to-speech).
 
-Keep in mind that [this sample on GitHub](https://github.com/Azure-Samples/cognitive-services-speech-sdk) about **Azure Speech** referenced in architecture below is only an example for guidance and there may be places to optimize the code before using in a production environment. You can also see the quickstart on [how to convert text to speech](https://docs.microsoft.com/azure/cognitive-services/speech-service/get-started-text-to-speech).
+Keep in mind that [this sample on GitHub](https://github.com/Azure-Samples/cognitive-services-speech-sdk) about **Azure Speech** referenced in architecture below is only an example for guidance and there may be places to optimize the code before using in a production environment. You can also see the quickstart on [how to convert text to speech](/azure/cognitive-services/speech-service/get-started-text-to-speech).
 
 ## Architecture Diagram
 
@@ -21,26 +21,26 @@ Keep in mind that [this sample on GitHub](https://github.com/Azure-Samples/cogni
 
 ## Architecture Services
 
-- [Azure Event Hub](https://docs.microsoft.com/azure/event-hubs/event-hubs-about) - Chosen as it keeps the order of the messages received.
-- [Azure Function](https://docs.microsoft.com/azure/azure-functions/functions-overview) - Simplest way to run code on-demand in the cloud.
-- [Azure Content Moderator](https://docs.microsoft.com/azure/cognitive-services/content-moderator/overview) - Included to avoid detect profanity or other undesirable language.
-- [Azure Text Analytics](https://docs.microsoft.com/azure/cognitive-services/text-analytics/overview) - This service detects the language used by the player, which is required for the Azure Speech service. Alternatively, [Azure Content Moderator](https://docs.microsoft.com/azure/cognitive-services/content-moderator/overview) can also detect the language.
-- [Azure Speech](https://docs.microsoft.com/azure/cognitive-services/speech-service/text-to-speech) - This service provides the Text-to-Speech functionality. With Text-to-Speech, you can convert input text into humanlike synthesized speech by using [prebuilt neural voices](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support?tabs=speechtotext#prebuilt-neural-voices) or [custom neural voices](https://docs.microsoft.com/azure/cognitive-services/speech-service/custom-neural-voice). 
-- [Azure Premium Blob Storage](https://docs.microsoft.com/azure/storage/blobs/storage-blob-storage-tiers) - Selected due to latency requirements, as the standard Azure Blob Storage may have limitations if the voice-file read is on demand during game play.
+- [Azure Event Hub](/azure/event-hubs/event-hubs-about) - Chosen as it keeps the order of the messages received.
+- [Azure Function](/azure/azure-functions/functions-overview) - Simplest way to run code on-demand in the cloud.
+- [Azure Content Moderator](/azure/cognitive-services/content-moderator/overview) - Included to avoid detect profanity or other undesirable language.
+- [Azure Text Analytics](/azure/cognitive-services/text-analytics/overview) - This service detects the language used by the player, which is required for the Azure Speech service. Alternatively, [Azure Content Moderator](/azure/cognitive-services/content-moderator/overview) can also detect the language.
+- [Azure Speech](/azure/cognitive-services/speech-service/text-to-speech) - This service provides the Text-to-Speech functionality. With Text-to-Speech, you can convert input text into humanlike synthesized speech by using [prebuilt neural voices](/azure/cognitive-services/speech-service/language-support?tabs=speechtotext#prebuilt-neural-voices) or [custom neural voices](/azure/cognitive-services/speech-service/custom-neural-voice). 
+- [Azure Premium Blob Storage](/azure/storage/blobs/storage-blob-storage-tiers) - Selected due to latency requirements, as the standard Azure Blob Storage may have limitations if the voice-file read is on demand during game play.
 
 ## Architecture Considerations
 
-For [Azure Speech](https://docs.microsoft.com/azure/cognitive-services/speech-service/text-to-speech), max number of transactions per second per Speech service resource is 200 transactions per second (TPS) for S0 (standard pricing tier) users. You can submit a request to increase this amount. For details, see [Text-to-speech quotas and limits per resource](https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-services-quotas-and-limits#text-to-speech-quotas-and-limits-per-resource). You can also use the [Long Audio API](https://docs.microsoft.com/azure/cognitive-services/speech-service/long-audio-api) to asynchronously synthesize text-to-speech files longer than 10 minutes. 
+For [Azure Speech](/azure/cognitive-services/speech-service/text-to-speech), max number of transactions per second per Speech service resource is 200 transactions per second (TPS) for S0 (standard pricing tier) users. You can submit a request to increase this amount. For details, see [Text-to-speech quotas and limits per resource](/azure/cognitive-services/speech-service/speech-services-quotas-and-limits#text-to-speech-quotas-and-limits-per-resource). You can also use the [Long Audio API](/azure/cognitive-services/speech-service/long-audio-api) to asynchronously synthesize text-to-speech files longer than 10 minutes. 
 
 When enabling this functionality in your game, keep in mind the following benefits:
 
-- **Voices and languages supported** - A large portfolio of languages and variants are supported. For a complete list of voices, see the [prebuilt neural voice](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#prebuilt-neural-voices) and [custom neural voice](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#custom-neural-voice). You can also specify multiple languages for Text-to-Speech output. For details, see [how to adjust speaking languages](https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp#adjust-speaking-languages). For custom neural voice, you can select to create [different languages](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support?tabs=speechtotext#custom-neural-voice) from single language training data.
-- **Emotional styles supported** - [Emotional tones](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support?tabs=speechtotext#voice-styles-and-roles), such as cheerful, angry, sad, excited, hopeful, friendly, unfriendly, terrified, shouting, and whispering. You can adjust the [speaking style, style degree, and role](https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp#adjust-speaking-styles) at the sentence level.
-- **Low latency real-time speech synthesis supported** - Use the [Speech SDK](https://docs.microsoft.com/azure/cognitive-services/speech-service/get-started-text-to-speech) to convert text to speech by using prebuilt neural voices or custom neural voices.
-- **Visemes supported** - You can use [visemes](https://docs.microsoft.com/azure/cognitive-services/speech-service/how-to-speech-synthesis-viseme) during real-time synthesizing to control the movement of 2D and 3D avatar models, so that the mouth movements are perfectly matched to synthetic speech. 
-- **Fine-tuning Text-to-Speech output with Speech Synthesis Markup Language (SSML)** - With SSML, you can customize Text-to-Speech outputs, with richer voice tuning supports. For more details, see [how to improve synthesis with SSML](https://docs.microsoft.com/azure/cognitive-services/speech-service/speech-synthesis-markup).
-- **Audio outputs** - There is a list of supported [audio formats](https://docs.microsoft.com/azure/cognitive-services/speech-service/rest-text-to-speech#audio-outputs). Each incorporates a bitrate and encoding type. The Speech Service supports 48-KHz on `en-US` and `zh-CN` regions. Other audio outputs lower than 48-KHz will be up-sampled to 48-KHz. 
-- **Regions supported** - For information about regional availability, see the [regions](https://docs.microsoft.com/azure/cognitive-services/speech-service/regions#text-to-speech) topic.
+- **Voices and languages supported** - A large portfolio of languages and variants are supported. For a complete list of voices, see the [prebuilt neural voice](/azure/cognitive-services/speech-service/language-support#prebuilt-neural-voices) and [custom neural voice](/azure/cognitive-services/speech-service/language-support#custom-neural-voice). You can also specify multiple languages for Text-to-Speech output. For details, see [how to adjust speaking languages](/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp#adjust-speaking-languages). For custom neural voice, you can select to create [different languages](/azure/cognitive-services/speech-service/language-support?tabs=speechtotext#custom-neural-voice) from single language training data.
+- **Emotional styles supported** - [Emotional tones](/azure/cognitive-services/speech-service/language-support?tabs=speechtotext#voice-styles-and-roles), such as cheerful, angry, sad, excited, hopeful, friendly, unfriendly, terrified, shouting, and whispering. You can adjust the [speaking style, style degree, and role](/azure/cognitive-services/speech-service/speech-synthesis-markup?tabs=csharp#adjust-speaking-styles) at the sentence level.
+- **Low latency real-time speech synthesis supported** - Use the [Speech SDK](/azure/cognitive-services/speech-service/get-started-text-to-speech) to convert text to speech by using prebuilt neural voices or custom neural voices.
+- **Visemes supported** - You can use [visemes](/azure/cognitive-services/speech-service/how-to-speech-synthesis-viseme) during real-time synthesizing to control the movement of 2D and 3D avatar models, so that the mouth movements are perfectly matched to synthetic speech. 
+- **Fine-tuning Text-to-Speech output with Speech Synthesis Markup Language (SSML)** - With SSML, you can customize Text-to-Speech outputs, with richer voice tuning supports. For more details, see [how to improve synthesis with SSML](/azure/cognitive-services/speech-service/speech-synthesis-markup).
+- **Audio outputs** - There is a list of supported [audio formats](/azure/cognitive-services/speech-service/rest-text-to-speech#audio-outputs). Each incorporates a bitrate and encoding type. The Speech Service supports 48-KHz on `en-US` and `zh-CN` regions. Other audio outputs lower than 48-KHz will be up-sampled to 48-KHz. 
+- **Regions supported** - For information about regional availability, see the [regions](/azure/cognitive-services/speech-service/regions#text-to-speech) topic.
 
 ## Deployment Template
 
@@ -55,16 +55,16 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Create an Event Hub using Azure Resource Manager template](https://docs.microsoft.com/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
-> - [Automate resource deployment for your function app in Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
+> - [Create an Event Hub using Azure Resource Manager template](/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
+> - [Automate resource deployment for your function app in Azure Functions](/azure/azure-functions/functions-infrastructure-as-code)
 
 There are two types of Azure Cognitive Services subscriptions. The first is a subscription to a single service, such as Computer Vision or the Speech Services. A single-service subscription is restricted to just that service. The second type is a multi-service subscription. This allows you to use a single subscription for multiple Azure Cognitive Services. This option also consolidates billing. To make this reference architecture as modular as possible, the cognitive services are each setup as a single service.
 
-Finally, add these Function [application settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can connect to the Azure services:
+Finally, add these Function [application settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings) so the sample project can connect to the Azure services:
 
-- EVENTHUB_CONNECTION_STRING - The [connection string](https://docs.microsoft.com/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created
-- TEXTANALYTICS_KEY - The [access key](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account#access-your-resource) for the Azure Text Analytics cognitive service that was created
-- SPEECH_KEY - The [access key](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-apis-create-account#access-your-resource) for the Azure Speech Cognitive Service that was created.
+- EVENTHUB_CONNECTION_STRING - The [connection string](/azure/event-hubs/event-hubs-get-connection-string) to the Azure Event Hub namespace that was created
+- TEXTANALYTICS_KEY - The [access key](/azure/cognitive-services/cognitive-services-apis-create-account#access-your-resource) for the Azure Text Analytics cognitive service that was created
+- SPEECH_KEY - The [access key](/azure/cognitive-services/cognitive-services-apis-create-account#access-your-resource) for the Azure Speech Cognitive Service that was created.
 
 >[!TIP]
 > To run the Azure Functions locally, update the *local.settings.json* file with these same app settings.
@@ -86,15 +86,15 @@ Finally, add these Function [application settings](https://docs.microsoft.com/az
 
 ### Blob Storage Clean Up
 
-Be diligent about cleaning up the audio files saved in persistent storage.  See the [managing Blob storage lifecycle](https://docs.microsoft.com/azure/storage/blobs/storage-lifecycle-management-concepts) documentation for more information.
+Be diligent about cleaning up the audio files saved in persistent storage.  See the [managing Blob storage lifecycle](/azure/storage/blobs/storage-lifecycle-management-concepts) documentation for more information.
 
 ### Azure Text-to-Speech Service
 
-To learn about the benefits and capabilities of the Text-to-Speech service, see [Text-to-Speech overview](https://docs.microsoft.com/azure/cognitive-services/speech-service/text-to-speech).
+To learn about the benefits and capabilities of the Text-to-Speech service, see [Text-to-Speech overview](/azure/cognitive-services/speech-service/text-to-speech).
 
 ### Azure Text Analytics
 
-This service is required to detect the language of the chat string submitted by the player. At the moment, the service is only able to return the ISO 639-1 name ("en", "fr", etc) meaning a conversion table is going to be required as the Text to Speech language codes are a more granular, supporting specific language and dialect. For the full list see [language and region support](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-to-speech).
+This service is required to detect the language of the chat string submitted by the player. At the moment, the service is only able to return the ISO 639-1 name ("en", "fr", etc) meaning a conversion table is going to be required as the Text to Speech language codes are a more granular, supporting specific language and dialect. For the full list see [language and region support](/azure/cognitive-services/speech-service/language-support#text-to-speech).
 
 Alternatively, instead of the conversion table, you could let your players choose their preferred local language (i.e: Mexican Spanish instead of Argentinian Spanish) and the voice as part of the game settings.
 
@@ -104,13 +104,13 @@ Azure Content Moderator can also detect the language of a string sent for modera
 
 ## Security Considerations
 
-Do not hard-code any Event Hub or Cognitive Services connection strings into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](https://docs.microsoft.com/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
+Do not hard-code any Event Hub or Cognitive Services connection strings into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
 
-Review the [Event Hub authentication and security model overview](https://docs.microsoft.com/azure/event-hubs/event-hubs-authentication-and-security-model-overview) and put it into practice to ensure only your chat server can talk to the Event Hub.
+Review the [Event Hub authentication and security model overview](/azure/event-hubs/event-hubs-authentication-and-security-model-overview) and put it into practice to ensure only your chat server can talk to the Event Hub.
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 
