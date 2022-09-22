@@ -42,7 +42,7 @@ This article will describe the architecture used in [this sample on GitHub](http
 1. The data is the pulled from **Azure Cosmos DB** and returned to the game engine for visualization.
 
 > [!TIP]
-> If you are looking to visualize data in a dashboard, hook up the Azure Cosmos DB database to [Power BI](https://docs.microsoft.com/azure/cosmos-db/powerbi-visualize).
+> If you are looking to visualize data in a dashboard, hook up the Azure Cosmos DB database to [Power BI](/azure/cosmos-db/powerbi-visualize).
 
 ## Deployment template
 
@@ -57,16 +57,16 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Create an Event Hub using Azure Resource Manager template](https://docs.microsoft.com/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
-> - [Automate resource deployment for your function app in Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
-> - [Azure Cosmos DB template](https://docs.microsoft.com/azure/templates/microsoft.documentdb/databaseaccounts)
+> - [Create an Event Hub using Azure Resource Manager template](/azure/event-hubs/event-hubs-resource-manager-namespace-event-hub)
+> - [Automate resource deployment for your function app in Azure Functions](/azure/azure-functions/functions-infrastructure-as-code)
+> - [Azure Cosmos DB template](/azure/templates/microsoft.documentdb/databaseaccounts)
 
 >[!TIP]
 > To run the Azure Functions locally, update the *local.settings.json* file with these same app settings.
 
 ## Implementation details
 
-A single [Azure Function App](https://docs.microsoft.com/azure/azure-functions/functions-create-first-azure-function) should contain all the functions shown above and can share the same [Hosting Plan](https://docs.microsoft.com/azure/azure-functions/functions-scale).  
+A single [Azure Function App](/azure/azure-functions/functions-create-first-azure-function) should contain all the functions shown above and can share the same [Hosting Plan](/azure/azure-functions/functions-scale).  
 
 ### Ingestion Function
 
@@ -91,11 +91,11 @@ Choosing the right pricing plan for your needs will depend on much the telemetry
 
 ## Optimization considerations
 
-You can **expire old data automatically stored in Azure Cosmos DB** using [Azure Cosmos DB TTL](https://docs.microsoft.com/azure/cosmos-db/time-to-live) (Time To Live), setting a time horizon where stored documents will be purged.
+You can **expire old data automatically stored in Azure Cosmos DB** using [Azure Cosmos DB TTL](/azure/cosmos-db/time-to-live) (Time To Live), setting a time horizon where stored documents will be purged.
 
 Events sent to the Ingestion **Azure Function** should be batched on the client to reduce HTTP overhead.  Consider using client-side compression if the batches are large.
 >[!TIP]
-> Compressing the batches server-side prior to transmission to **Event Hub** can help reduce costs of [Throughput Units](https://docs.microsoft.com/azure/event-hubs/event-hubs-faq#throughput-units).  This is especially helpful if multiple services are consuming the events, or there are other Event Hubs in the same Namespace.
+> Compressing the batches server-side prior to transmission to **Event Hub** can help reduce costs of [Throughput Units](/azure/event-hubs/event-hubs-faq#throughput-units).  This is especially helpful if multiple services are consuming the events, or there are other Event Hubs in the same Namespace.
 
 ## Additional resources and samples
 
@@ -106,13 +106,13 @@ Events sent to the Ingestion **Azure Function** should be batched on the client 
 
 ### Advanced streaming aggregation support
 
-If you are looking for windowing support out-of-the-box, meaning you want to perform set-based computation (aggregation) or other operations over subsets of events that fall within some period of time, then you should consider replacing the Azure Function that connects the Azure Event Hub to Azure Cosmos DB with [Azure Stream Analytics](https://docs.microsoft.com/stream-analytics-query/windowing-azure-stream-analytics).
+If you are looking for windowing support out-of-the-box, meaning you want to perform set-based computation (aggregation) or other operations over subsets of events that fall within some period of time, then you should consider replacing the Azure Function that connects the Azure Event Hub to Azure Cosmos DB with [Azure Stream Analytics](/stream-analytics-query/windowing-azure-stream-analytics).
 
-[Azure Stream Analytics](https://docs.microsoft.com/stream-analytics-query/windowing-azure-stream-analytics) can be used for adding advanced aggregation scenarios on the event stream.  For example, **Azure Functions**, being stateless, don't natively support [windowing](https://docs.microsoft.com/azure/stream-analytics/stream-analytics-window-functions) on event streams.
+[Azure Stream Analytics](/stream-analytics-query/windowing-azure-stream-analytics) can be used for adding advanced aggregation scenarios on the event stream.  For example, **Azure Functions**, being stateless, don't natively support [windowing](/azure/stream-analytics/stream-analytics-window-functions) on event streams.
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 
