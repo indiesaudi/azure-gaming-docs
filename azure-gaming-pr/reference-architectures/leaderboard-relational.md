@@ -17,8 +17,8 @@ ms.prod: azure-gaming
 
 ## Architecture Services
 
-- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/)
-- [Azure SQL Database](https://docs.microsoft.com/azure/sql-database/)
+- [Azure Functions](/azure/azure-functions/)
+- [Azure SQL Database](/azure/sql-database/)
 
 ## Architecture considerations
 
@@ -41,10 +41,10 @@ While this reference architecture can be extended to support multiple games, iso
  
 ### Service tiers for gaming leaderboard performance and scalability
 
-To ensure sufficient resources for gaming launches and ongoing large-scale throughput, consider implementing the data tier on [Premium or Business Critical](https://docs.microsoft.com/azure/sql-database/sql-database-service-tier-business-critical) service tier models. These service tiers are designed for games that require low-latency responses from the underlying SSD storage and provide fast recovery if the underlying infrastructure fails. Business Critical enables a free of charge readable secondary replica of the primary database.
+To ensure sufficient resources for gaming launches and ongoing large-scale throughput, consider implementing the data tier on [Premium or Business Critical](/azure/sql-database/sql-database-service-tier-business-critical) service tier models. These service tiers are designed for games that require low-latency responses from the underlying SSD storage and provide fast recovery if the underlying infrastructure fails. Business Critical enables a free of charge readable secondary replica of the primary database.
 
 > [!NOTE]
-> All schema and queries recommended in this architecture were tested on the [Azure SQL Database Business Critical](https://docs.microsoft.com/azure/sql-database/sql-database-service-tier-business-critical) Gen 5 service tier, with 14 vCores and using 1.6 Billion rows of game score history.
+> All schema and queries recommended in this architecture were tested on the [Azure SQL Database Business Critical](/azure/sql-database/sql-database-service-tier-business-critical) Gen 5 service tier, with 14 vCores and using 1.6 Billion rows of game score history.
 
 ## Database schema
 
@@ -439,7 +439,7 @@ GO
 
 ### Handling singleton lookups
 
-Again, keep ad hoc activity to a minimum against the *GameCompletion* table.  If using this table for real-time individual score retrieval (vs. leaderboard generation), consider adding supporting [nonclustered b-tree indexes](https://docs.microsoft.com/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described) based on the anticipated lookup values.
+Again, keep ad hoc activity to a minimum against the *GameCompletion* table.  If using this table for real-time individual score retrieval (vs. leaderboard generation), consider adding supporting [nonclustered b-tree indexes](/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described) based on the anticipated lookup values.
 
 For infrequent scenarios, the following is an example of a single game result lookup operation that uses just the underlying Columnstore index of GameCompletion:
 
@@ -475,19 +475,19 @@ The change and archive process runs immediately (sub-second) assuming all steps 
 
 ## Additional resources and samples
 
-- [Partitioned Tables and Indexes](https://docs.microsoft.com/sql/relational-databases/partitions/partitioned-tables-and-indexes)
-- [Columnstore indexes - Design guidance](https://docs.microsoft.com/sql/relational-databases/indexes/columnstore-indexes-design-guidance#choose-the-best-columnstore-index-for-your-needs)
-- [Manual tune query performance in Azure SQL Database](https://docs.microsoft.com/azure/sql-database/sql-database-performance-guidance)
-- [Clustered and Nonclustered Indexes DescribedSQL Server Index Architecture and Design Guide](https://docs.microsoft.com/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described)
+- [Partitioned Tables and Indexes](/sql/relational-databases/partitions/partitioned-tables-and-indexes)
+- [Columnstore indexes - Design guidance](/sql/relational-databases/indexes/columnstore-indexes-design-guidance#choose-the-best-columnstore-index-for-your-needs)
+- [Manual tune query performance in Azure SQL Database](/azure/sql-database/sql-database-performance-guidance)
+- [Clustered and Nonclustered Indexes DescribedSQL Server Index Architecture and Design Guide](/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described)
 - [Azure SQL Database for Gaming Industry Workloads technical white paper](https://azure.microsoft.com/resources/azure-sql-database-for-gaming-industry-workloads/)
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 
-- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/)
+- [Azure Functions](/azure/azure-functions/)
 - [Azure SQL Database](https://azure.microsoft.com/pricing/details/sql-database/managed/)
 
 You can also use the [Azure pricing calculator](https://azure.microsoft.com/pricing/calculator/) to configure and estimate the costs for the Azure services that you are planning to use. Prices are estimates and are not intended as actual price quotes. Actual prices may vary depending upon the date of purchase, currency of payment, and type of agreement you enter with Microsoft. Contact a Microsoft sales representative for additional information on pricing.
