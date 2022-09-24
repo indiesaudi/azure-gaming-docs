@@ -59,6 +59,8 @@ The following list of software is installed on the Game Development Virtual Mach
 * [Incredibuild Visual Studio Plugin](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1193210.IncrediBuild), Agent and Coordinator (Bring Your Own License)
 * NodeJS
 * [NVIDIA GPU GRID drivers](/azure/virtual-machines/windows/n-series-driver-setup)
+* [PIX](https://devblogs.microsoft.com/pix/introduction/)
 * Python
 * [Quixel Bridge](https://quixel.com/bridge)
+* [Simplygon 10](https://www.simplygon.com/)
 * [UnrealVS Plugin](https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/DevelopmentSetup/VisualStudioSetup/UnrealVS/)

@@ -28,7 +28,7 @@ This article describes common support issues that customers might experience, an
 
 The most common issue when deploying the Game Development Virtual Machine is when the Azure region you are deploying to does not have the desired quota, especially for GPU SKUs which are high in demand. You may receive a similar error like the following when you deploy the VM: _"Operation could not be completed as it results in exceeding approved standardNVSv3Family Cores quota."_
 
-If you can’t find your desired VM SKUs when you attempt to create the VM, it could be possible that your Azure subscription doesn’t have enough quota to deploy GPU-intensive VMs, or the region doesn’t support the SKUs.
+If you can’t find your desired VM SKUs when you attempt to create the VM, it could be possible that your Azure subscription doesn’t have enough quota to deploy GPU-intensive VMs, or the region doesn’t support the SKUs, or your Azure offer doesn't support GPU. To check what Azure offers support GPU SKUs, please refer to this <a href="./offer-types.md" target="_blank">offer types chart</a>.
 	
 :::image type="content" source="./media/troubleshoot-support/select-vm-size.png" alt-text="Screenshot showing the Azure Portal dashboard to select a VM size":::
 

@@ -17,7 +17,7 @@ The focus of this documentation is the portion from version control through buil
 
 [![Azure Cloud Build Overview](media/cloud-build-pipeline/acb-0-intro/overview.png)](media/cloud-build-pipeline/acb-0-intro/overview.png)
 
-While we recommend using the Azure Game Development VM for this exercise, will not be covering the specifics of it, nor Virtual Desktop Infrastructure portion here. For that, please see documentation for the [Azure Game Development VM]().  
+While we recommend using the Azure Game Development VM for this exercise, will not be covering the specifics of it, nor Virtual Desktop Infrastructure portion here. For that, please see documentation for the [Azure Game Development VM](/gaming/azure/game-dev-virtual-machine/index.yml).  
 This is a large guide, so it’s best to take some time to review it before working on it, to understand what you might need ahead of time.
 
 If you have any questions, please contact us at [azuregamedevs@microsoft.com](mailto:azuregamedevs@microsoft.com). (Apologies to watchers of the video; the email listed there had technical issues. Please use this one instead.)
@@ -40,7 +40,7 @@ Here’s how we plan to deploy each of the components in terms of Azure resource
 
 ## Azure Subscription Prerequisites
 
-This guide assumes the use of the Azure Game Developer VM as the developer workstation and the build agent. At present, this requires availability of an NV-series (GPU equipped) VM SKU. If you intend to follow this, please check that you have enough quota in your region for you subscription to allocate two such VMs. You can check and request quota increases at [Per VM Quota Requests](/azure/azure-portal/supportability/per-vm-quota-requests).
+This guide assumes the use of the Azure Game Development VM as the developer workstation and the build agent. At present, this requires availability of a NV-series (GPU equipped) VM SKU. If you intend to follow this, please check that you have enough quota in your region for you subscription to allocate two such VMs. You can check and request quota increases at [Per VM Quota Requests](/azure/azure-portal/supportability/per-vm-quota-requests).
 
 Here’s the order in which we will be setting up and testing this demo pipeline.
 
