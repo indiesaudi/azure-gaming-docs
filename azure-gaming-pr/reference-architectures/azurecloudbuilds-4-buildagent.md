@@ -28,7 +28,7 @@ Alternatively, select an Azure VM or physical machine that you would like to use
 
 ## Setting up the build agent VM
 
-1. Find the [Azure Game Development VM](https://azuremarketplace.microsoft.com/marketplace/apps/microsoft-agci-gaming.agci-gamedev-vm?tab=Overview) offering in the Azure Marketplace and create a VM.
+1. Find the [Azure Game Development VM](https://azuremarketplace.microsoft.com/marketplace/apps/microsoft-azure-gaming.azure-gamedev-vm) offering in the Azure Marketplace and create a VM.
 
 [![Create Game Dev VM 1](media/cloud-build-pipeline/acb4-buildagent/gdvmcreate1.png)](media/cloud-build-pipeline/acb4-buildagent/gdvmcreate1.png)
 
