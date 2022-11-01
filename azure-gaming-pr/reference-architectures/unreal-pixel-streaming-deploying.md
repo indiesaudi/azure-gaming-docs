@@ -13,18 +13,18 @@ ms.prod: azure-gaming
 
 ## Overview
 
-This guide will walk through the process of taking the exported Unreal Pixel Streaming package and deploying it on an Azure GPU Virtual Machine, or multiple VMs if using the Matchmaker service to load balance across many streams on multiple GPU VMs. For a detailed overview of Pixel Streaming and architectures in Azure, see our documentation [here](unreal-pixel-streaming-in-azure.md). For deploying Unreal Pixel Streaming at scale (i.e., 2 to 1000&#39;s of streams) see our documentation [here](unreal-pixel-streaming-at-scale.md), which uses Terraform to deploy your Pixel Streaming solution in Azure with auto-scaling.
+This guide will walk through the process of taking the exported Unreal Pixel Streaming package and deploying it on an Azure GPU Virtual Machine, or multiple VMs if using the Matchmaker service to load balance across many streams on multiple GPU VMs. For a detailed overview of Pixel Streaming and architectures in Azure, see our documentation [here](unreal-pixel-streaming-in-azure.md). To learn how to deploy Unreal Pixel Streaming at scale, from two to thousands of streams, with the easy to deploy Azure Marketplace solution, see [Deploying Uneal Engine Pixel Streaming on Azure](https://docs.unrealengine.com/4.27/ProductionPipelines/CloudDeployments/AzurePixelStreaming/). This marketplace solution allows users to deploy Pixel Streaming in Azure, right from the Azure Portal. It also supports both Unreal Engine 4 and 5 apps. For more information, see Azure [Marketplace Offer](https://azuremarketplace.microsoft.com/marketplace/apps/epicgames.unreal-pixel-streaming?tab=Overview).
 
 ## Architecture
 
-Below are a couple simple architectures this guide will cover to start with when deploying Pixel Streaming to Azure, which is a **Single VM** and **Multiple VMs with the Matchmaker** service. By first deploying these approaches you can better understand the components and how each interact with one another, which is key to being able to further develop a scaled-out architecture in Azure. Essentially, the **Single VM** approach will have the Unreal Engine 3D App and the Signaling Web Server (SS) on the same VM, allowing users to stream to a single stream which will be shared. For providing each user their own 3D stream, we will then walk through adding the Matchmaker (MM) service on a separate VM to load balance incoming users across multiple GPU VMs (i.e., Signaling Servers). Please refer to our overview documentation [here](unreal-pixel-streaming-in-azure.md) for a deeper dive into these architectures and services.
+Below are a couple simple architectures this guide will cover to start with when deploying Pixel Streaming to Azure, which is a **Single VM** and **Multiple VMs with the Matchmaker** service. By first deploying these approaches you can better understand the components and how each interact with one another, which is key to being able to further develop a scaled-out architecture in Azure. Essentially, the **Single VM** approach will have the Unreal Engine 3D App and the Signaling Web Server (SS) on the same VM, allowing users to stream to a single stream which will be shared. For providing each user their own 3D stream, we will then walk through adding the Matchmaker (MM) service on a separate VM to load balance incoming users across multiple GPU VMs running the Signaling Servers. Please refer to our overview documentation [here](unreal-pixel-streaming-in-azure.md) for a deeper dive into these architectures and services.
 
 ###
 [![Unreal Pixel Streaming architectures in Azure](media/pixel-streaming/pixel-streaming-architectures-simple.png)](media/pixel-streaming/pixel-streaming-architectures-simple.png)
 
 ## Quick Start Deployment for a Single VM in Azure
 
-To deploy Unreal Pixel Streaming in Azure using a single VM we can use the below steps. Luckily, Microsoft and Epic have worked together and made a [Terraform template](unreal-pixel-streaming-at-scale.md) for deploying Pixel Streaming in Azure at scale which only requires a few commands of Terraform to deploy; however, the below steps go through the table stakes to get Pixel Streaming deployed for reference.
+To deploy Unreal Pixel Streaming in Azure using a single VM we can use the below steps, but first export out the Unreal Engine (UE) app as described in the [Unreal Engine docs](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/PixelStreamingIntro/index.html). Luckily, Microsoft and Epic have worked together and made a [Terraform template](unreal-pixel-streaming-at-scale.md) for deploying Pixel Streaming in Azure at scale which only requires a few commands of Terraform to deploy; however, the below steps go through the table stakes to get Pixel Streaming deployed for reference. For even easier deployment, we recommend using the [Epic Games Azure Marketplace solution](https://docs.unrealengine.com/4.27/ProductionPipelines/CloudDeployments/AzurePixelStreaming/) to deploy Unreal Pixel Streaming in Azure, and can be done all through the portal.
 
 1. Sign into the Azure portal at [https://portal.azure.com](https://portal.azure.com/).
 2. Type **virtual machines** in the search.
@@ -52,7 +52,7 @@ Depending on your **Region** needs, choose a **Region** that is the closest to t
 10. Finish creating the VM from the **Review + create** page.
 11. This will start the deployment process and the portal will display status updates until finished.
 12. After deployment is complete and you can see &quot;Deployment Complete&quot;, you can choose &#39;Go To Resource&#39; to get access to the VM. From there you can access the Networking tab.
-13. In the Networking page on the left, click the [Add inbound port rule](/azure/virtual-machines/windows/nsg-quickstart-portal#create-an-inbound-security-rule) button to open up any additional ports such as 8888 (PixelStreamingPort between UE4 + SS), 9999 (if using MM), 443 (if needing Https) and any STUN/TURN server ports being used (e.g., 19302). STUN/TURN servers not _required_ for most users, though some mobile or restricted networks might require these—learn more [here](#turn-and-stun-servers). As always, please follow your security requirements to ensure desired network safety.
+13. In the Networking page on the left, click the [Add inbound port rule](/azure/virtual-machines/windows/nsg-quickstart-portal#create-an-inbound-security-rule) button to open up any additional ports such as 8888 (PixelStreamingPort between Unreal Engine app + SS), 9999 (if using MM), 443 (if needing Https) and any STUN/TURN server ports being used (e.g., 19302). STUN/TURN servers not _required_ for most users, though some mobile or restricted networks might require these—learn more [here](#turn-and-stun-servers). As always, please follow your security requirements to ensure desired network safety.
 
 [![Open VM Ports](media/pixel-streaming/pixel-streaming-add-ports.png)](media/pixel-streaming/pixel-streaming-add-ports.png)
 
@@ -60,14 +60,14 @@ Depending on your **Region** needs, choose a **Region** that is the closest to t
 
 [![RDP Login](media/pixel-streaming/pixel-streaming-rdp-login.png)](media/pixel-streaming/pixel-streaming-rdp-login.png)
 
-15. Once connected to the VM, accept the Windows Privacy options and copy (right click -&gt; copy) and paste (right click -&gt; paste) the exported Pixel Streaming package ([Unreal docs](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/PixelStreamingIntro/index.html)) to the Windows desktop of the VM (i.e., WindowsNoEditor folder contents). **Note:** To speed up the copy it&#39;s recommended to zip up the files before copying over.
+15. Once connected to the VM, accept the Windows Privacy options and copy (right click -&gt; copy) and paste (right click -&gt; paste) the exported Pixel Streaming package ([Unreal docs](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/PixelStreamingIntro/index.html)) to the Windows desktop of the VM (i.e., WindowsNoEditor folder contents for UE4 apps, or Windows folder for UE5). **Note:** To speed up the copy it&#39;s recommended to zip up the files before copying over.
 16. The VM should now have the `<AppName>.exe`, `<AppName>\` and `Engine\` folder on the VM.
 17. Install the following pre-reqs to run a 3D application on the Windows GPU VM:
     1.   Run the installer under `\Engine\Extras\Redist\en-us\UE4PrereqSetup\_x64.exe` to install required .NET, Visual C++ and DirectX runtimes. This also will be run if starting the UE4 app before manually installing the pre-reqs, as the app checks for dependencies.
     2.   Once installed, ensure that if you launch the Pixel Streaming `<AppName.exe>` it runs successfully. If running into any errors:
          1.   Ensure the NVIDIA extension was setup correctly (make sure `C:\Program Files\Nvidia\...\Nvidia-smi.exe` shows `WDDM` (not `TCC`) and check dxdiag (via the run command) to inspect directx libraries and NVIDIA drivers are installed.
          2.   After the pre-req install try to restart and then run the app again.
-18. Close the UE4 app after testing it runs (Alt+F4 if no quit/esc option was added)
+18. Close the UE app after testing it runs (Alt+F4 if no quit/esc option was added)
 19. Install Node.js for the Signaling Server and Matchmaker to run, which can be downloaded [here](https://nodejs.org/en/download/) from any installed Browser on the VM, or copy and paste the installer from your local computer.
 20. Download the following files to the `SignallingWebServer\` folder: `…\Engine\Source\Programs\PixelStreaming\WebServers\SignallingWebServer\`
     1.  [runAzure.bat](https://unrealbackendfiles.blob.core.windows.net/ourpublicblobs/runAzure.bat) (Required)
@@ -78,7 +78,7 @@ Depending on your **Region** needs, choose a **Region** that is the closest to t
 Be sure to do a **Save As** in your browser for each file and make sure to remove any .txt added to the file name. These are also in a [GitHub PR request #7698](https://github.com/EpicGames/UnrealEngine/pull/7698) for users who [linked](https://www.epicgames.com/help/epic-accounts-c74/connect-accounts-c110/how-do-i-link-my-unreal-engine-account-with-my-github-account-a3618) their Epic and GitHub accounts)
 
 21. Ensure that the Windows Firewall allows incoming and outgoing traffic from 80 (TCP/UDP), 8888 (UDP, if not using localhost for PixelStreamingIP below), 19302 (If using Google&#39;s STUN server via above \*.ps1&#39;s, UDP), and any TURN server (none by default) ports (see [opening ports with Windows firewall](/sql/database-engine/configure-windows/configure-a-windows-firewall-for-database-engine-access?view=sql-server-ver15#SSMSProcedure)).
-22. Right click on the UE4 `<AppName>.exe` and **Create shortcut**. Right click on the shortcut and choose **Properties**. Paste in the following [parameters](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/PixelStreamingReference/#unrealenginecommand-lineparameters) in the **Target** after the .exe with a space:
+22. Right click on the UE `<AppName>.exe` and **Create shortcut**. Right click on the shortcut and choose **Properties**. Paste in the following [parameters](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/PixelStreamingReference/#unrealenginecommand-lineparameters) in the **Target** after the .exe with a space:
     1.  `-AudioMixer -PixelStreamingIP=localhost -PixelStreamingPort=8888 -WinX=0 -WinY=0 -ResX=1920 -ResY=1080 -Windowed -RenderOffScreen -ForceRes`
 23. Run the shortcut to kick off the 3D app in the background (you can check Task Manager to verify it&#39;s running under the **Processes** tab—sort by Name or CPU/GPU to spot it easily). Windows may popup a dialog requiring you to confirm you wish to run the App and Node.js services when first started on the VM.
 24. Run the `runAzure.bat` under the `SignallingWebServer\` folder and ensure the SS is connected to the 3D app by looking for the `"Streamer Connected::1"` log in the SS console output.
@@ -96,7 +96,7 @@ Be sure to do a **Save As** in your browser for each file and make sure to remov
 
 To deploy Unreal Pixel Streaming in Azure using a separate Matchmaker VM we can use the following steps:
 
-1. Follow the [Quick Start Deployment for a Single VM](#quick-start-deployment-for-a-single-vm-in-azure) as described above to get a VM with the Signaling Server and UE4 app running in Azure.
+1. Follow the [Quick Start Deployment for a Single VM](#quick-start-deployment-for-a-single-vm-in-azure) as described above to get a VM with the Signaling Server and UE app running in Azure.
 2. In the Azure portal, we need to create a new Windows 10 VM for the Matchmaker.
 3. Following similar steps as when creating the Signaling Server VM, sign into the Azure portal at [https://portal.azure.com](https://portal.azure.com/).
 4. Type **virtual machines** in the search.
@@ -195,7 +195,7 @@ Below are [configurations](https://docs.unrealengine.com/SharingAndReleasing/Pix
 
 ### TURN and STUN Servers
 
-In some cases you might need a STUN / TURN server in between the UE4 app and the browser to help identify public IPs (STUN) or get around certain NAT&#39;ing/Mobile carrier settings (TURN) that might not support WebRTC. Please refer to Unreal Engine&#39;s [documentation](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/Hosting/index.html) for details about these options; however, for most users a STUN server should be sufficient. Inside of the SignallingWebServer\ folder there are PowerShell scripts used to spin up the Cirrus.js service which communicates between the user and the UE4 app over WebRTC, and `Start_Azure_SignallingServer.ps1` or `Start_Azure_WithTURN_SignallingServer.ps1` are used to launch with STUN / TURN options. There are public stun servers like a Google one (_stun.l.google.com:19302)_, but it&#39;s highly recommended to **deploy your own for production**. You can find many other public options online as well (e.g., [1](https://gist.github.com/mondain/b0ec1cf5f60ae726202e), [2](https://stackoverflow.com/questions/20068944/how-to-self-host-to-not-rely-on-webrtc-stun-server-stun-l-google-com19302/20134888#20134888)). Unreal Engine exports out stunserver.exe and turnserver.exe when packaging up the Pixel Streaming 3D app to setup on your own servers:
+In some cases you might need a STUN / TURN server in between the UE4 or UE5 app and the browser to help identify public IPs (STUN) or get around certain NAT&#39;ing/Mobile carrier settings (TURN) that might not support WebRTC. Please refer to Unreal Engine&#39;s [documentation](https://docs.unrealengine.com/SharingAndReleasing/PixelStreaming/Hosting/index.html) for details about these options; however, for most users a STUN server should be sufficient. Inside of the SignallingWebServer\ folder there are PowerShell scripts used to spin up the Cirrus.js service which communicates between the user and the UE4 or UE5 app over WebRTC, and `Start_Azure_SignallingServer.ps1` or `Start_Azure_WithTURN_SignallingServer.ps1` are used to launch with STUN / TURN options. There are public stun servers like a Google one (_stun.l.google.com:19302)_, but it&#39;s highly recommended to **deploy your own for production**. Unreal Engine exports out stunserver.exe and turnserver.exe when packaging up the Pixel Streaming 3D app to setup on your own servers:
  `…\Engine\Source\ThirdParty\WebRTC\rev.23789\programs\Win64\VS2017\release\`
 
 ##
@@ -227,4 +227,5 @@ When Unreal Pixel Streaming is packaged from Unreal Engine the solution contains
 
 Consider deploying Unreal Pixel Streaming in Azure at scale with a robust Terraform template:
 
+- [Deploying Pixel Streaming via the Azure Marketplace](https://docs.unrealengine.com/4.27/ProductionPipelines/CloudDeployments/AzurePixelStreaming/)
 - [Deploying Pixel Streaming at Scale in Azure](unreal-pixel-streaming-at-scale.md)
