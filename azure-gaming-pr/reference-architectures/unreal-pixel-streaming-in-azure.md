@@ -13,7 +13,7 @@ ms.prod: azure-gaming
 
 ## Overview
 
-This documentation goes through an overview on how to deploy Unreal Engine&#39;s Pixel Streaming technology in Azure, which is a technology that Epic Games provides in their Unreal Engine to stream remotely deployed interactive 3D applications through a browser (i.e., computer/mobile) without the need for the connecting client to have GPU hardware. For those who are new to Pixel Streaming, it&#39;s recommended to first follow Epic&#39;s [Getting Started](https://docs.unrealengine.com/latest/en-US/getting-started-with-pixel-streaming-in-unreal-engine/) documentation to ensure you can deploy Pixel Streaming on your local computer, and then read the documentation below to get a greater understanding of Pixel Streaming architectures in Azure. Once you have a good understanding of how Pixel Streaming works, you can follow our [quick-start guide](#quick-start-guide) below for the basics of deploying Pixel Streaming in Azure. For a more robust solution in Azure, refer to the [autoscaling solution](#autoscaling-solution) which deploys from Git using Terraform and Application Insights for custom metrics.
+This documentation goes through an overview on how to deploy Unreal Engine&#39;s Pixel Streaming technology in Azure, which is a technology that Epic Games provides in their Unreal Engine to stream remotely deployed interactive 3D applications through a browser from devices like computers and mobile phones without the need for the connecting client to have GPU hardware. For those who are new to Pixel Streaming, it&#39;s recommended to first follow Epic&#39;s [Getting Started](https://docs.unrealengine.com/latest/en-US/getting-started-with-pixel-streaming-in-unreal-engine/) documentation to ensure you can deploy Pixel Streaming on your local computer, and then read the documentation below to get a greater understanding of Pixel Streaming architectures in Azure. Once you have a good understanding of how Pixel Streaming works, you can follow our [quick-start guide](#quick-start-guide) below for the basics of deploying Pixel Streaming in Azure. For the best experience in Azure, we recommend deploying your Unreal Engine app via the [Unreal Pixel Streaming Marketplace](#azure-marketplace-solution) solution in Azure, which is officially published by Epic Games. All new features for Unreal Pixel Streaming in Azure will be built into the Azure Marketplace solution, and not the Terraform version in GitHub.  For the older Terraform solution for Azure, refer to the [autoscaling solution](#autoscaling-solution) which deploys from Git using Terraform and Application Insights for custom metrics.
 
 ### Quick-Start Guide
 
@@ -21,7 +21,11 @@ Follow this guide to learn the basics of deploying Pixel Streaming on an Azure G
 
 ### Autoscaling Solution
 
-For deploying Unreal Pixel Streaming at scale (i.e., 2 to 1000&#39;s of streams) with autoscaling, multiple streams per GPU and Azure metrics, refer to the Azure documentation here: [Unreal Pixel Streaming at Scale](unreal-pixel-streaming-at-scale.md).
+For deploying Unreal Pixel Streaming at scale (i.e., 2 to 1000&#39;s of streams) with autoscaling, multiple streams per GPU and Azure metrics, refer to the Azure documentation here: [Unreal Pixel Streaming at Scale](unreal-pixel-streaming-at-scale.md). This is an older version, and the newest version is found in the [Azure Marketplace](https://azuremarketplace.microsoft.com/marketplace/apps/epicgames.unreal-pixel-streaming?tab=Overview).
+
+### Azure Marketplace Solution
+
+Officially published by Epic Games in the Azure Marketplace, this easy to deploy solution builds on top of the Autoscaling Solution and adds even more functionality like lifecyle management, a custom dashboard for managing the deployments, streaming metrics, and many more improvements. All new improvements are done in the Marketplace solution, and the Terraform version in GitHub will not be updated other than fixing issues. Documentation for this solution is available as part of Unreal Engine's cloud deployment documentation: [Unreal Pixel Streaming at Scale](https://docs.unrealengine.com/4.27/ProductionPipelines/CloudDeployments/AzurePixelStreaming/).
 
 ### Overview of Unreal Engine&#39;s Pixel Streaming
 
@@ -83,7 +87,7 @@ See the [Configurations section](unreal-pixel-streaming-deploying.md#configurati
 Below are the recommended compute SKUs for general usage of Pixel Streaming in Azure:
 
 - **Matchmaker** : Standard\_F4s\_v2 or similar should be sufficient. 4 cores with a smaller memory footprint should be fine for most deployments as there is very little CPU/Memory usage due to the instant redirecting users to Signaling Servers.
-- **Signaling Server** : Standard\_NV12s\_v3 or Standard\_NV6 might be the best price per performance GPU VMs in Azure for Pixel Streaming, with the newer [NV12s\_v3](/azure/virtual-machines/nvv3-series)&#39;s providing better CPU performance at a similar price-point to the older [NV6s](/azure/virtual-machines/nv-series). Both have a NVIDIA Tesla M60 GPU. If Ray Tracing is required in your app you&#39;ll need to look at the [NCas T4 v3](/azure/virtual-machines/nct4-v3-series) series VMs in limited regions (preview). As GPU SKUs are in high demand, it&#39;s important to work with the capacity team early on to request the needed quota for any event or deployment that will be spinning up a great number of GPU VMs.
+- **Signaling Server** : Standard\_NV12s\_v3 or Standard\_NV6 might be the best price per performance GPU VMs in Azure for Pixel Streaming, with the newer [NV12s\_v3](/azure/virtual-machines/nvv3-series)&#39;s providing better CPU performance at a similar price-point to the older [NV6s](/azure/virtual-machines/nv-series). Both have a NVIDIA Tesla M60 GPU. If Ray Tracing is required in your app you&#39;ll need to look at the [NCas T4 v3](/azure/virtual-machines/nct4-v3-series) and even more powerful [NVadsA10v5](/azure/virtual-machines/nva10v5-series) series VMs. For the NVIDIA A10 GPUs, be sure to use the Standard\_NV36ads\_A10\_v5 SKU to leverage a full GPU, as this series is partitioned according to core counts. As GPU SKUs are in high demand, it&#39;s important to work with the capacity team early on to request the needed quota for any event or deployment that will be spinning up a great number of GPU VMs.
 
 **Important:** It is recommended to first deploy your Pixel Streaming executable and run it on your desired GPU SKU to see the performance characteristics around CPU/Memory/GPU usage to ensure no resources are being pegged and frame rates are acceptable. Consider changing resolution and frames per second of the UE4 app to achieve acceptable quality per your requirements. Additionally, consider the IOPS / latency requirements for the 3D app when choosing a disk, as [SSDs](https://azure.microsoft.com/pricing/details/managed-disks/) and/or striping disks will be key to gaining the best disk speed (some GPU SKUs might not support Premium SSDs so also consider disk striping for adding IOPS).
 
@@ -123,5 +127,6 @@ One of the challenges with Pixel Streaming when streaming to hundreds or even th
 
 See these quickstarts to get started:
 
+- [Deploying Pixel Streaming via the Azure Marketplace](https://docs.unrealengine.com/4.27/ProductionPipelines/CloudDeployments/AzurePixelStreaming/)
 - [Deploying Pixel Streaming in Azure](unreal-pixel-streaming-deploying.md)
 - [Deploying Pixel Streaming at Scale in Azure](unreal-pixel-streaming-at-scale.md)
