@@ -1,0 +1,10 @@
+- name: Overview
+  href: https://learn.microsoft.com/azure/developer/intro/azure-developer-overview
+- name: Set up Azure account
+  href: set-up-account-to-access-services.md 
+- name: Manage access
+  href: concept-manage-access.md
+- name: General guidelines
+  href: ../reference-architectures/general-guidelines.md
+- name: Glossary
+  href: glossary.md
