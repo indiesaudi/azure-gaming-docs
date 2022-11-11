@@ -1,0 +1,70 @@
+### YamlMime:Landing
+
+title: Unreal Cloud DDC documentation
+summary: Use Unreal Cloud Derived Data Cache (DDC) with Azure cloud services.
+
+metadata:
+  title: Unreal Cloud DDC with Azure
+  description: Unreal Cloud DDC with Azure
+  ms.service: azure-gaming
+  ms.topic: landing-page
+  author: dciborow
+  ms.author: dciborow
+  ms.date: 09/15/2022
+  
+# linkListType: architecture | concept | deploy | download | get-started | how-to-guide | learn | overview | quickstart | reference | sample | tutorial | video | whats-new
+
+landingContent:
+  # Card
+  - title: Get started with Unreal Cloud DDC 
+    linkLists:
+      - linkListType: overview
+        links:
+        - text: What is Unreal Cloud DDC?
+          url: overview.md
+      - linkListType: get-started
+        links:
+        - text: Setup configuration
+          url: quickstart-first-setup.md
+        - text: Manage identity and access
+          url: quickstart-first-setup-id.md
+  
+  # Card
+  - title: Create Unreal Cloud DDC resources
+    linkLists:
+      - linkListType: quickstart
+        links:
+        - text: Use the Azure Portal
+          url: quickstart-portal.md
+        - text: Use the Azure CLI
+          url: quickstart-bicep.md?tabs=CLI
+        - text: Use Azure PowerShell
+          url: quickstart-bicep.md?tabs=PowerShell
+        - text: IaC with GitHub
+          url: quickstart-github.md          
+
+  # Card
+  - title: Connect to Unreal Cloud DDC
+    linkLists:
+      - linkListType: how-to-guide
+        links:
+        - text: From Game Dev VM
+          url: integrate-with-gdvm.md
+        - text: From Visual Studio
+          url: integrate-with-vs.md
+
+  # Card
+  - title: How-to
+    linkLists:
+      - linkListType: how-to-guide
+        links:
+        - text: High availability and disaster recovery
+          url: how-to-high-availability.md
+
+  # Card
+  - title: Troubleshooting
+    linkLists:
+      - linkListType: how-to-guide
+        links:
+        - text: Common issues
+          url: troubleshoot-support.md
