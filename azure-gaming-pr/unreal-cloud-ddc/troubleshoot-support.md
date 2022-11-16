@@ -461,3 +461,9 @@ LogDerivedDataCache: Display: ../../../Engine/DerivedDataCache: Cache put found 
 LogDerivedDataCache: Display: HTTP: PUT https://preview.ie.horde-storage.gaming.azure.com/api/v1/refs/cobalt_test/legacyanimseq/e70c531120c9c03d5b4dc97c3fe59abbc76f6837 -> 401 (sent 43 bytes, 0.037 seconds) 
 LogDerivedDataCache: https://preview.ie.horde-storage.gaming.azure.com: Failed to put reference object for put of LegacyAnimSeq/e70c531120c9c03d5b4dc97c3fe59abbc76f6837 from 'AnimSequence /Game/Animation/Characters/Player1P/1H/Idle/Hip/Pstl01/A_Player1P_1H_Hip_Pstl01_Idle01.A_Player1P_1H_Hip_Pstl01_Idle01'
 ```
+
+Confirm that the application Service Principal is single-tenant.
+If the application was created as a multi-tenant application it must be changed back.
+In the Service Principal, under the **Nanifest** blade, reset the following values.
+- accessTokenAcceptedVersion: null
+- signInAudience: AzureADMyOrg
