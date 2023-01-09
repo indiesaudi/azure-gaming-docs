@@ -60,7 +60,7 @@ Using the Azure CLI, run the following script to accept Unreal Engine's terms fo
 ```azurecli-interactive
 az term accept \
     --publisher "microsoft-azure-gaming" \
-    --product "horde-storage-preview" \
+    --product "unreal-cloud-ddc-preview" \
     --plan "preview"
 ```
 
