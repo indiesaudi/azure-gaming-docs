@@ -463,7 +463,7 @@ LogDerivedDataCache: https://preview.ie.horde-storage.gaming.azure.com: Failed t
 ```
 
 Confirm that the application Service Principal is single-tenant.
-If the application was created as a multi-tenant application it must be changed back.
-In the Service Principal, under the **Nanifest** blade, reset the following values.
+If the application was created as a multi-tenant application it can be changed back.
+In the Service Principal, under the **Manifest** blade, reset the following values.
 - accessTokenAcceptedVersion: null
 - signInAudience: AzureADMyOrg
