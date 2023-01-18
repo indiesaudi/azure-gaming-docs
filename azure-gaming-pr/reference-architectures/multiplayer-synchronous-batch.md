@@ -19,8 +19,8 @@ The game server pools are managed by Azure Batch, responsible for **creating vir
 
 ## Relevant services
 
-- [Azure Traffic Manager](https://docs.microsoft.com/azure/traffic-manager/traffic-manager-overview) - Selected as it connects the player to the most appropiate regional zone based on latency.
-- [Azure Batch](https://docs.microsoft.com/azure/batch/batch-technical-overview) - It is used for creating VMs and opening ports. Selected as it can automatically scale pools based on parameters that you define.
+- [Azure Traffic Manager](/azure/traffic-manager/traffic-manager-overview) - Selected as it connects the player to the most appropiate regional zone based on latency.
+- [Azure Batch](/azure/batch/batch-technical-overview) - It is used for creating VMs and opening ports. Selected as it can automatically scale pools based on parameters that you define.
 
 Leverage one resource group for the Azure Traffic Manager and one resource group for each regional virtual machine cluster.
 
@@ -52,9 +52,9 @@ There are some differences depending on what operating system the virtual machin
 
 ### Containers
 
-In case you have containerized you game in Linux containers, there are pre-baked images to run the containers. See [Run container applications on Azure Batch](https://docs.microsoft.com/azure/batch/batch-Docker-container-workloads) to learn how to create a pool of compute nodes that support running container tasks, and then run container tasks on the pool.
+In case you have containerized you game in Linux containers, there are pre-baked images to run the containers. See [Run container applications on Azure Batch](/azure/batch/batch-Docker-container-workloads) to learn how to create a pool of compute nodes that support running container tasks, and then run container tasks on the pool.
 
-Refer to the **microsoft-azure-batch** publisher documented in [this link](https://docs.microsoft.com/azure/batch/batch-linux-nodes#list-of-virtual-machine-images) for the available Linux images.
+Refer to the **microsoft-azure-batch** publisher documented in [this link](/azure/batch/batch-linux-nodes#list-of-virtual-machine-images) for the available Linux images.
 
 ## Deployment template
 
@@ -76,7 +76,7 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Azure Batch pools template reference](https://docs.microsoft.com/azure/templates/microsoft.batch/2018-12-01/batchaccounts/pools)
+> - [Azure Batch pools template reference](/azure/templates/microsoft.batch/2018-12-01/batchaccounts/pools)
 
 ## Step by step
 
@@ -90,7 +90,7 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 
 ## Scaling
 
-With [Azure Batch automatic scaling](https://docs.microsoft.com/azure/batch/batch-automatic-scaling), the service dynamically adds nodes to a pool as task demands increase, and removes compute nodes as they decrease.
+With [Azure Batch automatic scaling](/azure/batch/batch-automatic-scaling), the service dynamically adds nodes to a pool as task demands increase, and removes compute nodes as they decrease.
 
 You enable automatic scaling on a pool of compute nodes by associating with it an autoscale formula that you define. The Azure Batch service uses the autoscale formula to determine the number of compute nodes that are needed to execute your workload.
 
@@ -100,7 +100,7 @@ Alternatively like in this example, you can task the matchmaker to proactively l
 
 ## Security considerations
 
-There are some [requirements](https://docs.microsoft.com/azure/batch/batch-virtual-network#vnet-requirements) when you are including an **Azure Batch service pool of virtual machines in a virtual network**.
+There are some [requirements](/azure/batch/batch-virtual-network#vnet-requirements) when you are including an **Azure Batch service pool of virtual machines in a virtual network**.
 
 ## Additional resources and samples
 
@@ -113,7 +113,7 @@ There are some [requirements](https://docs.microsoft.com/azure/batch/batch-virtu
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures, the total amount depends on the number of events that will run though the analytics pipeline. See the pricing webpages for each of the services that were used in the reference architectures:
 

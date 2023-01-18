@@ -1,0 +1,43 @@
+- name: Unreal Cloud DDC Documentation
+  href: index.yml 
+- name: Overview
+  href: overview.md
+- name: Quickstarts
+  expanded: true
+  items:
+    - name: One-time setup for admins
+      items:
+      - name: Setup and configure
+        href: quickstart-first-setup.md
+      - name: Manage identity and access
+        href: quickstart-first-setup-id.md
+    - name: Create resources
+      items:
+      - name: Azure portal
+        href: quickstart-portal.md
+      - name: Bicep Template
+        href: quickstart-bicep.md?tabs=CLI
+      - name: IaC with GitHub
+        href: quickstart-github.md
+    - name: Configure resources
+      href: deployment-setup.md
+    - name: Connect to resources
+      items:
+      - name: From Game Development VM
+        href: integrate-with-gdvm.md
+      - name: From Visual Studio
+        href: integrate-with-vs.md
+- name: How-to guides
+  expanded: false
+  items:
+  - name: High availability and disaster recovery
+    href: how-to-high-availability.md
+- name: Concepts
+  items:
+  - name: Intro to Azure
+    href: ../intro-to-azure/TOC.yml
+- name: Support and troubleshooting
+  expanded: false
+  items:
+  - name: Common Issues
+    href: troubleshoot-support.md

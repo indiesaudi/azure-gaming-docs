@@ -21,9 +21,9 @@ Refer to [Orchestrating and scaling Icebird's game server with Docker and Azure]
 
 ## Reference implementation details
 
-Each virtual machine includes a Docker container that runs a game session. As soon as the virtual machine starts, it instantiates the Docker container and opens the required network port(s) through a custom script extension ([Linux](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-linux), [Windows](https://docs.microsoft.com/azure/virtual-machines/extensions/custom-script-windows)). Every container has it's own public dedicated IP address.
+Each virtual machine includes a Docker container that runs a game session. As soon as the virtual machine starts, it instantiates the Docker container and opens the required network port(s) through a custom script extension ([Linux](/azure/virtual-machines/extensions/custom-script-linux), [Windows](/azure/virtual-machines/extensions/custom-script-windows)). Every container has it's own public dedicated IP address.
 
-Additionally, there is a **get server Azure Function**, that runs on an App Service plan, which allows for additional scaling options as described in the [App Service environment](https://docs.microsoft.com/azure/app-service/environment/intro) document. Any App Service must have an Azure Storage account and, the Azure Function service will provision it.  In this storage account, an [Azure Table Storage](https://docs.microsoft.com/azure/storage/tables/table-storage-overview) table is used to store the information about the pool of servers, including the unique identifier of the server, its IP address, port, and status. The *get server Azure Function* uses this information to return connection details to the client, as well as to mark a server as not available when it is being used.
+Additionally, there is a **get server Azure Function**, that runs on an App Service plan, which allows for additional scaling options as described in the [App Service environment](/azure/app-service/environment/intro) document. Any App Service must have an Azure Storage account and, the Azure Function service will provision it.  In this storage account, an [Azure Table Storage](/azure/storage/tables/table-storage-overview) table is used to store the information about the pool of servers, including the unique identifier of the server, its IP address, port, and status. The *get server Azure Function* uses this information to return connection details to the client, as well as to mark a server as not available when it is being used.
 
 To help scale the server pool, a timer-triggered **auto-scale Azure Function** is used. Every minute or so, it looks how many servers are available and adds additional servers if they are required. If there are too many servers in the pool that are unused, it will deprovision them. You can set up how many servers you want to have warm in the pool.
 
@@ -48,15 +48,15 @@ Have a look at the [general guidelines documentation](./general-guidelines.md#na
 >[!NOTE]
 > If you're interested in how the ARM template works, review the Azure Resource Manager template documentation from each of the different services leveraged in this reference architecture:
 >
-> - [Automate resource deployment for your function app in Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
-> - [Azure Container Registry template](https://docs.microsoft.com/azure/templates/microsoft.containerregistry/registries)
+> - [Automate resource deployment for your function app in Azure Functions](/azure/azure-functions/functions-infrastructure-as-code)
+> - [Azure Container Registry template](/azure/templates/microsoft.containerregistry/registries)
 
 >[!TIP]
 > To run the Azure Functions locally, update the *local.settings.json* file with these same app settings.
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 

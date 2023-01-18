@@ -14,7 +14,7 @@ ms.prod: azure-gaming
 
 ## Setting up the developer workstation
 
-For the demo, this workstation can be a physical machine or a VM, but in either case it needs discrete graphics capability. In this guide, we will use the [Azure Game Development Virtual Machine](https://azuremarketplace.microsoft.com/marketplace/apps/microsoft-agci-gaming.agci-gamedev-vm?tab=Overview). You can find it in the Azure Marketplace as a public preview offering:
+For the demo, this workstation can be a physical machine or a VM, but in either case it needs discrete graphics capability. In this guide, we will use the [Azure Game Development Virtual Machine](https://azuremarketplace.microsoft.com/marketplace/apps/microsoft-azure-gaming.azure-gamedev-vm). You can find it in the Azure Marketplace:
 
 [![Game Dev VM](media/cloud-build-pipeline/acb-1-devws/gamedevvm-azureoffer.png)](media/cloud-build-pipeline/acb-1-devws/gamedevvm-azureoffer.png)
 

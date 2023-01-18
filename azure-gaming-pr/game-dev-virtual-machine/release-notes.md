@@ -14,6 +14,12 @@ In this article, learn about updates for Azure Game Development Virtual Machine.
 
 Due to the rapidly evolving needs and packages updates, we target to release new Azure Game Development Virtual Machine images every month. Azure portal users will always find the latest image available for provisioning the Game Development Virtual Machine. For CLI or ARM users, we keep images of individual versions available for twelve months. After that period, a particular version of image is no longer available for provisioning.
 
+## September 2022
+
+- Integrated [PIX](https://devblogs.microsoft.com/pix/introduction/).
+- Integrated [Simplygon](https://www.simplygon.com/).
+- Published Game Dev VM to Azure Government Marketplace.  
+
 ## August 2022
 
 - Announcing General Availability of the [Azure Game Dev VM](https://azure.microsoft.com/products/virtual-machines/game-development-virtual-machines/), with [Azure Game Production Pipeline: Create Games on the Cloud](https://developer.microsoft.com/games/blog/azure-game-production-pipeline-create-games-on-the-cloud/)

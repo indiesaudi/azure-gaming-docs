@@ -14,7 +14,7 @@ ms.prod: azure-gaming
 These reference architectures describe a leaderboard use case and implementation with different alternatives, enabling you to architect your own cloud solution so you can have full control and customization to fit your game design perfectly.
 
 > [!TIP]
-> If you are looking for an out-of-the-box leaderboard solution, **Azure PlayFab** is a complete back-end platform for building, launching, and growing cloud connected games that has [leaderboard support](https://docs.microsoft.com/gaming/playfab/features/social/tournaments-leaderboards/).
+> If you are looking for an out-of-the-box leaderboard solution, **Azure PlayFab** is a complete back-end platform for building, launching, and growing cloud connected games that has [leaderboard support](/gaming/playfab/features/social/tournaments-leaderboards/).
 
 ## Leaderboard design
 
@@ -32,7 +32,7 @@ There are many variables which can be taken into consideration when defining a l
 
 ### Player authentication and identity
 
-This reference architecture doesn't cover player authentication nor player identity.  For more information on authentication, check out Azure PlayFab, which offers many [forms of authentication](https://docs.microsoft.com/rest/api/playfab/client/authentication) so players can be tracked across multiple devices.
+This reference architecture doesn't cover player authentication nor player identity.  For more information on authentication, check out Azure PlayFab, which offers many [forms of authentication](/rest/api/playfab/client/authentication) so players can be tracked across multiple devices.
 
 ### Size and complexity
 
@@ -71,7 +71,7 @@ When it comes to choosing the database that will store leaderboard information, 
 | **Primary storage model** | Table based | Document store, graph database, key-value store or wide column store
 | **Scalability** | Vertically scalable - increase server CPU, RAM or storage | Horizontally scalable - sharding or add more servers
 
-For all the details on the different storage models, please see the [choose the right data store](https://docs.microsoft.com/azure/architecture/guide/technology-choices/data-store-overview) documentation.
+For all the details on the different storage models, please see the [choose the right data store](/azure/architecture/guide/technology-choices/data-store-overview) documentation.
 
 On a final note, personal expertise on either alternative is something to take into consideration. Choosing a known path will spare you from having to deal with an entirely new set of unknown problems and the time it will take to become proficient on new best practices and concepts.
 
@@ -82,4 +82,4 @@ Here are two different implementations of a simple leaderboard use cases to get 
 
 ## Additional resources and samples
 
-[Azure Data Architecture Guide](https://docs.microsoft.com/azure/architecture/data-guide/)
+[Azure Data Architecture Guide](/azure/architecture/data-guide/)

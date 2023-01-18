@@ -33,7 +33,7 @@ Here are are some multiplayer backend use cases for you to explore:
 - [Turn-Based multiplayer](./multiplayer-asynchronous.md)
 
 > [!TIP]
-> If you are looking for an out-of-the-box scaling multiplayer server solution, **Azure PlayFab** is a complete back-end platform for building, launching, and growing cloud connected games that has [multiplayer servers support](https://docs.microsoft.com/gaming/playfab/features/multiplayer/servers/).
+> If you are looking for an out-of-the-box scaling multiplayer server solution, **Azure PlayFab** is a complete back-end platform for building, launching, and growing cloud connected games that has [multiplayer servers support](/gaming/playfab/features/multiplayer/servers/).
 
 ## Multiplayer Design
 
@@ -44,7 +44,7 @@ Compute services vary based on the level of management they offer, from those ma
 - **Raw Virtual Machines** - Everything is managed by you, it needs a custom scaling solution
 - **Azure Container Instances (ACI)** - Everything is managed by you but in a container, it needs a custom scaling solution
 - **Virtual Machine Scale Sets** / **Batch** - Manages the scaling of Virtual Machines on your behalf based on rules you define
-- **Azure PlayFab Multiplayer Servers** - Higher level orchestration of game servers on your behalf, running on top of Azure. For more information see [Azure PlayFab Multiplayer Servers](https://docs.microsoft.com/gaming/playfab/features/multiplayer/servers/).
+- **Azure PlayFab Multiplayer Servers** - Higher level orchestration of game servers on your behalf, running on top of Azure. For more information see [Azure PlayFab Multiplayer Servers](/gaming/playfab/features/multiplayer/servers/).
 
 ### Operating System
 
@@ -52,11 +52,11 @@ The table below provides an overview of what operating systems are supported by 
 
 |Service|Only Windows|Only Linux|
 |----------|-----------|------------|
-|Raw Virtual Machines|[Yes](https://docs.microsoft.com/azure/virtual-machines/windows/overview)|[Yes](https://docs.microsoft.com/azure/virtual-machines/linux/overview)|
+|Raw Virtual Machines|[Yes](/azure/virtual-machines/windows/overview)|[Yes](/azure/virtual-machines/linux/overview)|
 |Azure Container Instance (ACI)|Yes* (Windows 10 1607 only)|Yes|
-|Virtual Machine Scale Sets|[Yes](https://docs.microsoft.com/azure/virtual-machine-scale-sets/quick-create-template-windows)|[Yes](https://docs.microsoft.com/azure/virtual-machine-scale-sets/quick-create-template-linux)|
-|Batch|Yes|[Yes](https://docs.microsoft.com/azure/batch/batch-linux-nodes)|
-|Azure Kubernetes Service (AKS)|[Only via AKS-Engine](https://github.com/Azure/aks-engine/blob/master/docs/topics/windows.md)|[Yes](https://docs.microsoft.com/azure/aks/intro-kubernetes)|
+|Virtual Machine Scale Sets|[Yes](/azure/virtual-machine-scale-sets/quick-create-template-windows)|[Yes](/azure/virtual-machine-scale-sets/quick-create-template-linux)|
+|Batch|Yes|[Yes](/azure/batch/batch-linux-nodes)|
+|Azure Kubernetes Service (AKS)|[Only via AKS-Engine](https://github.com/Azure/aks-engine/blob/master/docs/topics/windows.md)|[Yes](/azure/aks/intro-kubernetes)|
 |Functions|Yes|Yes (dedicated mode)|
 
 \* Note: Multi-container groups are currently restricted to Linux containers.
@@ -99,14 +99,14 @@ A **lobby system** is fairly common for getting players together before actually
 
 ### Monitoring and Alerts
 
-In addition to your preferred telemetry solution, you could leverage [Azure Monitor](https://docs.microsoft.com/azure/azure-monitor/overview) to expose metrics from the Azure services used in your backend solution, along with diagnostic and activity logs. Azure Monitor can also help you identify issues affecting your game. Consider **enabling alerts** for:
+In addition to your preferred telemetry solution, you could leverage [Azure Monitor](/azure/azure-monitor/overview) to expose metrics from the Azure services used in your backend solution, along with diagnostic and activity logs. Azure Monitor can also help you identify issues affecting your game. Consider **enabling alerts** for:
 
 - CPU usage - You want to be notified if your hosts' CPUs are nearing saturation.
 - Disk I/O - Set up an alert if your game is either reading from disk or writing to disk more often than expected.
 - Memory utilization - When memory paging is excessive you should receive an alert.
 - Network traffic - You should consider generating an alert when your network traffic is close to saturation or suddenly plummets.
 
-You can automate the configuration of Azure Monitor using [Azure Resource Manager](https://docs.microsoft.com/azure/azure-monitor/platform/template-workspace-configuration). For more information about Azure Monitor see [Full stack end to end monitoring with Azure Monitor](https://channel9.msdn.com/Shows/Azure-Friday/Full-stack-end-to-end-monitoring-with-Azure-Monitor).
+You can automate the configuration of Azure Monitor using [Azure Resource Manager](/azure/azure-monitor/platform/template-workspace-configuration). For more information about Azure Monitor see [Full stack end to end monitoring with Azure Monitor](https://channel9.msdn.com/Shows/Azure-Friday/Full-stack-end-to-end-monitoring-with-Azure-Monitor).
 
 ### Hardware
 
@@ -137,10 +137,10 @@ By collecting this information, you can then figure out:
 
 Putting all of this together, you can then determine what virtual machines you are going to want and how much you will need to pay for them. Different virtual machine types have different bandwidth throughput. You will need to ensure the network interface is capable of handling the demand. Calculate the *number of players* per virtual machine multiplied by *the bandwidth consumed per player*. That amount can't be larger than the *max NICs / expected network bandwidth (Mbps)* documented for each of the VM sizes:
 
-- [Sizes for Linux virtual machines in Azure](https://docs.microsoft.com/azure/virtual-machines/linux/sizes)
-- [Sizes for Windows virtual machines in Azure](https://docs.microsoft.com/azure/virtual-machines/windows/sizes)
+- [Sizes for Linux virtual machines in Azure](/azure/virtual-machines/linux/sizes)
+- [Sizes for Windows virtual machines in Azure](/azure/virtual-machines/windows/sizes)
 
-It is worth bringing up that you may want to make use of [premium storage](https://docs.microsoft.com/azure/virtual-machines/windows/premium-storage) to increase the availability of a single instance virtual machine. With premium storage a virtual machine has an SLA of 99.9%.
+It is worth bringing up that you may want to make use of [premium storage](/azure/virtual-machines/windows/premium-storage) to increase the availability of a single instance virtual machine. With premium storage a virtual machine has an SLA of 99.9%.
 
 ### Latency Impact
 
@@ -148,7 +148,7 @@ In certain games, split second reflexes are required, and when you sum the playe
 
 To reduce or mitigate latency, there are several things to consider. From the implementation stand-point, it is fairly standard practice to enable **prediction on the client side**, to "get in front" of what the player will do at the expense of creating infrequent disagreements between what the player sees on their screen and what actually happens in game. To mitigate such disagreements then some compensation for the lag could be applied, using mechanisms like extrapolation or interpolation for determining where to display the game objects.
 
-From an infrastructure stand-point, the longer the distance from the player to the game server, the greater the latency eventually will be. **Connecting the players to the game servers that are closest to their vicinity** will be have an impact. Azure has more [global regions](https://azure.microsoft.com/global-infrastructure/regions/) than any other cloud provider, offering the scale to bring you closer to your players around the world. [Accelerated networking](https://docs.microsoft.com/azure/virtual-network/create-vm-accelerated-networking-cli) is a possibility for reducing latency on the server side, but keep in mind it's only enabled in virtual machines with at least 4 vCPUs. Also if you are going to be using Linux virtual machines, you could consider [DPDK](https://docs.microsoft.com/azure/virtual-network/setup-dpdk) to optimize latency and throughput when you have a large number of players in the same virtual machine.
+From an infrastructure stand-point, the longer the distance from the player to the game server, the greater the latency eventually will be. **Connecting the players to the game servers that are closest to their vicinity** will be have an impact. Azure has more [global regions](https://azure.microsoft.com/global-infrastructure/regions/) than any other cloud provider, offering the scale to bring you closer to your players around the world. [Accelerated networking](/azure/virtual-network/create-vm-accelerated-networking-cli) is a possibility for reducing latency on the server side, but keep in mind it's only enabled in virtual machines with at least 4 vCPUs. Also if you are going to be using Linux virtual machines, you could consider [DPDK](/azure/virtual-network/setup-dpdk) to optimize latency and throughput when you have a large number of players in the same virtual machine.
 
 For games that support groups, there is the need to tackle the case where different members of the group are far from each other. In your game, add the ability of manually choosing the region to connect to, or add a lowest latency common denominator algorithm.
 
@@ -189,7 +189,7 @@ Once you have captured daily workloads in your early tests, use that information
 
 ### Avoid Changing Infrastructure
 
-Do your best to use [Azure Logic Apps](https://docs.microsoft.com/azure/scheduler/migrate-from-scheduler-to-logic-apps) and try to avoid changing infrastructure as much as you can. Keeping a warm pool of running instances will allow you to get players into a game instantly, but will also increase your cost.
+Do your best to use [Azure Logic Apps](/azure/scheduler/migrate-from-scheduler-to-logic-apps) and try to avoid changing infrastructure as much as you can. Keeping a warm pool of running instances will allow you to get players into a game instantly, but will also increase your cost.
 
 ### Fail-safe
 
@@ -202,4 +202,4 @@ Use a monitor service to figure out if a node has failed and enable alerts. You 
 ## Additional resources and samples
 
 - [Ethr is a Network Performance Measurement Tool for TCP, UDP & HTTP](https://github.com/Microsoft/Ethr)
-- [Azure Data Architecture Guide](https://docs.microsoft.com/azure/architecture/data-guide/)
+- [Azure Data Architecture Guide](/azure/architecture/data-guide/)

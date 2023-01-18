@@ -2,7 +2,7 @@
 title: Known issues and FAQs with the Azure Game Development Virtual Machine
 description: Learn about known issues and FAQ when you work with the Azure Game Development Virtual Machine.
 author: meaghanlewis
-ms.topic: troubleshoot
+ms.topic: troubleshooting
 ms.date: 04/21/2022
 ms.author: mosagie
 ms.prod: azure-gaming
@@ -10,7 +10,7 @@ ms.prod: azure-gaming
 
 # Known issues and FAQs with the Azure Game Development Virtual Machine
 
-This article discusses known issues to be aware of when you work with Azure Game Development VM. If you have suggestions about this product, please submit your ideas via this <a href="https://forms.office.com/r/VHK5iEqeBm" target="_blank">survey</a>. Or join this <a href="https://discord.com/channels/684463257276121192/949072214689452083" target="_blank">Game Stack Discord channel</a> to connect with thousands of game developers around the world. Microsoft monitors the user feedback closely and listens to the voice of customers so that we can improve the service.
+This article discusses known issues to be aware of when you work with Azure Game Development VM. If you have suggestions about this product, please submit your ideas via this <a href="https://forms.office.com/r/VHK5iEqeBm" target="_blank">survey</a>. Or join this <a href="https://aka.ms/gamedevVMdiscord" target="_blank">Game Dev VM Discord channel</a> to connect with thousands of game developers around the world. Microsoft monitors the user feedback closely and listens to the voice of customers so that we can improve the service.
 
 > [!NOTE]
 > This article isn't a comprehensive list of known issues. If you know of an issue that isn't listed, provide feedback at the bottom of the page.
@@ -21,10 +21,10 @@ This article discusses known issues to be aware of when you work with Azure Game
 
 You may receive the following error when you deploy the VM: "Operation could not be completed as it results in exceeding approved size Family Cores quota." Or you cannot find the VM Size when you attempt to create this Game Development VM.
 
-This is true when your subscription reaches the VM usage limits, especially the [GPU – accelerated compute](/azure/virtual-machines/sizes-gpu) SKUs which are not always enabled by default. You can try different regions, or [check resource usage against limits](/azure/networking/check-usage-against-limits) and increase the limit.
+This is true when your subscription reaches the VM usage limits, especially the [GPU – accelerated compute](/azure/virtual-machines/sizes-gpu) SKUs which are not always enabled by default. You can try different regions, or [check resource usage against limits](/azure/networking/check-usage-against-limits) and increase the limit. It is also possible that your Azure offer doesn't support GPU. Please refer to this <a href="./offer-types.md" target="_blank">offer types chart</a> to check if your Azure subscription falls under the supported offers.
 
-> [!NOTE]
-> Currently, <a href="/azure/virtual-machines/nvv3-series" target="_blank">Standard NVSv3</a> and <a href="/azure/virtual-machines/nct4-v3-series" target="_blank">Standard NCASv3_T4</a> VM sizes are in high demand. If you opened a quota request before but it was backlogged, you can now fill and submit this <a href="https://forms.office.com/r/pjvL30p2zC" target="_blank">form</a> to expedite the approval process. Please provide the service request number on the form. You can also make an inquiry of your quota service request by reaching the Game Development VM engineering team via our <a href="https://discord.com/channels/684463257276121192/949072214689452083" target="_blank">Discord Channel</a>. Otherwise, you can try with the <a href="/azure/virtual-machines/nv-series" target="_blank">Standard NV</a> size which has better availability though less powerful.
+> [!TIP] 
+> If you are an independent game developer or startup interested in working with the Game Dev VM, joining the <a href="https://www.azure.com/id" target="_blank">ID@Azure</a> program is strongly recommended. This program will help with your quota ask; plus you get free access to developer tools and support from industry experts.
 
 ## Accessing the VM
 
@@ -96,3 +96,12 @@ Microsoft supports its own included tooling and Azure infrastructure used to dep
 #### I’m using Windows 10 and can’t verify if this VM is utilizing the licensing benefits, is that a problem?  
 
 As long as you have the [eligible windows 10 subscription licenses](/azure/virtual-machines/windows/windows-desktop-multitenant-hosting-deployment#subscription-licenses-that-qualify-for-multitenant-hosting-rights) that qualify for Multitenant Hosting Rights, or you deploy Windows 10 with your [Visual Studio (formerly MSDN) subscription](/azure/virtual-machines/windows/client-images) on Azure for dev/test purposes, you’re not violating Microsoft’s licensing restrictions.
+
+#### What’re the differences between <a href="https://azure.microsoft.com/products/dev-box/" target="_blank">Microsoft Dev Box</a> and <a href="https://azure.microsoft.com/products/virtual-machines/game-development-virtual-machines/" target="_blank">Azure Game Dev VM</a>?
+
+Microsoft Dev Box is a managed Azure service that enables developers to create on-demand, high-performance, secure, ready-to-code, project-specific workstations in the cloud. It is built on top of <a href="https://www.microsoft.com/windows-365" target="_blank">Windows 365</a>, leveraging it to integrate Dev Boxes with Intune to ensure unified management, security, and compliance stay in the hands of IT. 
+
+Game Dev VM is an Azure VM with customized image which includes common game development tools. It specifically targets game professionals who want to use Azure for game production; and meets the challenges of distributed game development with GPU-powered computing resources. It is deployable via Azure Portal, Powershell, ARM template, CLI, Terraform, or even via Bicep to VMSS. It now supports the <a href="./integrate-azure-virtual-desktop.md" target="_blank">integration with Azure Virtual Desktop</a>. 
+
+The Game Dev VM will be deployable on Dev Box in the future.
+

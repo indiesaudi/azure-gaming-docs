@@ -21,8 +21,8 @@ This reference architecture details the steps to setup a basic Azure backend tha
 
 ## Relevant services
 
-- [Azure Windows Virtual Machines](https://docs.microsoft.com/azure/virtual-machines/windows/overview) and [Azure Linux Virtual Machines](https://docs.microsoft.com/azure/virtual-machines/linux/overview) - The most basic way to get computing power on Azure.
-- [Azure Disk Storage](https://docs.microsoft.com/azure/virtual-machines/windows/about-disks-and-vhds) - Basic persistent storage.
+- [Azure Windows Virtual Machines](/azure/virtual-machines/windows/overview) and [Azure Linux Virtual Machines](/azure/virtual-machines/linux/overview) - The most basic way to get computing power on Azure.
+- [Azure Disk Storage](/azure/virtual-machines/windows/about-disks-and-vhds) - Basic persistent storage.
 
 ## Step by step
 
@@ -119,7 +119,7 @@ Your virtual machine is already configured to accept requests to both the mainte
 
 |Windows|Linux|
 |----------|-----------|
-|[Create an inbound port rule on Windows Server 2016](https://docs.microsoft.com/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule)|[Ubuntu uncomplicated firewall](https://help.ubuntu.com/lts/serverguide/firewall.html)<br><br>For example in the case of Minecraft the commands would be:<br>- `sudo ufw allow 25565/tcp` for Minecraft Java Edition<br>- `sudo ufw allow 19132/udp` for Minecraft Bedrock Edition|
+|[Create an inbound port rule on Windows Server 2016](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule)|[Ubuntu uncomplicated firewall](https://help.ubuntu.com/lts/serverguide/firewall.html)<br><br>For example in the case of Minecraft the commands would be:<br>- `sudo ufw allow 25565/tcp` for Minecraft Java Edition<br>- `sudo ufw allow 19132/udp` for Minecraft Bedrock Edition|
 
 In the case of Minecraft servers, just a reminder that the default ports vary depending on the version of the game: Minecraft Java Edition uses TCP/25565 while Minecraft Bedrock Edition uses UDP/19132.
 
@@ -127,7 +127,7 @@ In the case of Minecraft servers, just a reminder that the default ports vary de
 
 |Windows|Linux|
 |----------|-----------|
-|Use Disk Management (diskmgmt.msc)<br><br>To open Disk Management, right-click the Start button and select Disk Management.<br><br>Notice that the disk 2 is unallocated, that's the persistent disk that needs to be initialized and formatted.<br>[![Disk Management tool showing disk initialization](media/multiplayer/game-server-format-disk.png)](media/multiplayer/game-server-format-disk.png)|[Connect to the Linux VM to mount the new disk](https://docs.microsoft.com/azure/virtual-machines/linux/add-disk#connect-to-the-linux-vm-to-mount-the-new-disk)<br><br>It involves the following steps:<br> 1. Discovering the disk<br>2. Partitioning it<br>3. Writing a file system on it<br>4. Mounting it to a directory<br>5. Setting up automatic mounting after reboots|
+|Use Disk Management (diskmgmt.msc)<br><br>To open Disk Management, right-click the Start button and select Disk Management.<br><br>Notice that the disk 2 is unallocated, that's the persistent disk that needs to be initialized and formatted.<br>[![Disk Management tool showing disk initialization](media/multiplayer/game-server-format-disk.png)](media/multiplayer/game-server-format-disk.png)|[Connect to the Linux VM to mount the new disk](/azure/virtual-machines/linux/add-disk#connect-to-the-linux-vm-to-mount-the-new-disk)<br><br>It involves the following steps:<br> 1. Discovering the disk<br>2. Partitioning it<br>3. Writing a file system on it<br>4. Mounting it to a directory<br>5. Setting up automatic mounting after reboots|
 
 ### Install game server dependencies
 
@@ -191,7 +191,7 @@ Public inbound ports are exposed to the internet so you should use the Azure Por
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures, the total amount depends on the number of events that will run though the analytics pipeline. See the pricing webpages for each of the services that were used in the reference architectures:
 

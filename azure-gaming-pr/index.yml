@@ -1,103 +1,75 @@
-### YamlMime:Hub
+### YamlMime:Landing
 
-title: Azure for Gaming
-summary: Build, scale, and operate your game on the global, secure Azure cloud. Quickly scale up and down when your needs change, only pay for the resources you use.
-brand: azure
+title: Azure gaming documentation
+summary: Learn how to build games using Microsoft Azure services.
 
 metadata:
-  ms.topic: hub-page
-  author: BrianPeek
-  ms.author: brpeek
-  ms.prod: azure-gaming
-  ms.date: 03/12/2020
-  brand: azure-gaming
+  title: Azure gaming documentation
+  description: Learn how to build games using Microsoft Azure services.
+  ms.service: playfab
+  ms.topic: landing-page
+  author: joannaleecy
+  ms.author: joanlee
+  ms.date: 10/21/2022
+  
+# linkListType: architecture | concept | deploy | download | get-started | how-to-guide | learn | overview | quickstart | reference | sample | tutorial | video | whats-new
 
-# highlightedContent section
-# Maximum of 8 items
-highlightedContent:
-# itemType: architecture | concept | deploy | download | get-started | how-to-guide | learn | overview | quickstart | reference | sample | tutorial | video | whats-new
-  items:
-    # Card
-    - title: General Guidelines
-      itemType: get-started
-      url: reference-architectures/general-guidelines.md
-    # Card
-    - title: Create Azure account
-      itemType: get-started
-      url: https://azure.microsoft.com/solutions/gaming/ 
+landingContent:
+  # Develop games remotely
+  - title: Develop games remotely
+    linkLists:
+      - linkListType: overview
+        links:
+        - text: About Game Dev VM
+          url: game-dev-virtual-machine/overview.md
+        - text: Optimize using Unreal Cloud DDC
+          url: unreal-cloud-ddc/overview.md
+        - text: Tools included in Game Dev VM
+          url: game-dev-virtual-machine/tools-included-azure-game-dev-kit.md
+      - linkListType: quickstart
+        links:
+        - text: Using Unreal in Game Dev VM
+          url: game-dev-virtual-machine/create-game-development-vm-for-unreal.md
+        - text: Set up Unreal DDC in Azure
+          url: unreal-cloud-ddc/quickstart-portal.md
+        - text: Connect to Unreal DDC from Game Dev VM
+          url: unreal-cloud-ddc/integrate-with-gdvm.md
+        - text: Connect to Unreal DDC from Visual Studio
+          url: unreal-cloud-ddc/integrate-with-vs.md
+      - linkListType: concept
+        links:
+        - text: Choosing the right GPU SKU
+          url: game-dev-virtual-machine/choosing-gpu-sku.md   
+      - linkListType: how-to-guide
+        links:
+        - text: Remoting with Parsec
+          url: game-dev-virtual-machine/remote-to-vm-with-parsec.md
+        - text: Remoting with Teradici
+          url: game-dev-virtual-machine/remote-to-vm-with-teradici.md
 
-# productDirectory section
-productDirectory:
-  title: Features
-  items:
-    # Card
-    - title: Game Server Hosting
-      imageSrc: ./media/game-server-hosting.svg
-      links:
-        - text: Game Server Hosting Basics
-          url: reference-architectures/multiplayer-basic-game-server-hosting.md
-        - text: LAMP
-          url: reference-architectures/general-purpose-lamp.md
+  # Cloud Build Pipelines
+  - title: Cloud Build Pipelines
+    linkLists:
+      - linkListType: overview
+        links:
+        - text: Azure Cloud Builds
+          url: reference-architectures/azurecloudbuilds-0-intro.md
+        - text: Incredibuild - Scale out your cloud builds
+          url: reference-architectures/incredibuild-scale-out-your-cloud-builds.md
+      - linkListType: how-to-guide
+        links:
+        - text: Perforce - Using AAD together with Perforce
+          url: reference-architectures/perforce-using-aad-together-with-perforce.md
+        - text: Perforce - Logging on with a Managed Identity
+          url: reference-architectures/perforce-logging-on-with-a-managed-identity.md
+        - text: Perforce - Set up a Proxy in Azure
+          url: reference-architectures/perforce-set-up-a-proxy-in-azure.md
 
-    # Card
-    - title: Realtime Multiplayer Servers
-      imageSrc: ./media/multiplayer-servers.svg
-      links:
-        - text: Realtime Multiplayer Basics
-          url: reference-architectures/multiplayer-synchronous.md
-        - text: Azure Batch
-          url: reference-architectures/multiplayer-synchronous-batch.md
-        - text: Azure Kubernetes Service (AKS)
-          url: reference-architectures/multiplayer-synchronous-aks.md
-        - text: Azure Container Instances (ACI)
-          url: reference-architectures/multiplayer-synchronous-aci.md
-        - text: Custom Server Scaling
-          url: reference-architectures/multiplayer-custom-server-scaling.md
-
-    # Card
-    - title: Turn-Based Multiplayer Servers
-      imageSrc: ./media/game-server-scaling.svg
-      links:
-        - text: Turn-Based Multiplayer Basics
-          url: reference-architectures/multiplayer-asynchronous.md
-        - text: Azure Functions (Serverless)
-          url: reference-architectures/multiplayer-asynchronous-serverless.md
-
-    # Card
-    - title: Game Analytics
-      imageSrc: ./media/game-analytics.svg
-      links:
-        - text: Analytics
-          url: reference-architectures/analytics.md
-        - text: Non-real Time Dashboard
-          url: reference-architectures/analytics-non-real-time-dashboard.md
-        - text: In-editor Debugging Telemetry
-          url: reference-architectures/analytics-in-editor-debugging.md      
-
-    # Card
-    - title: Matchmaking
-      imageSrc: ./media/matchmaking.svg
-      links:
-        - text: Matchmaking Basics
-          url: reference-architectures/multiplayer-matchmaker.md
-        - text: Serverless
-          url: reference-architectures/multiplayer-matchmaker-serverless.md
-
-    # Card
-    - title: Leaderboards
-      imageSrc: ./media/leaderboards.svg
-      links:
-        - text: Leaderboard Basics
-          url: reference-architectures/leaderboard.md
-        - text: Non-relational Database Leaderboard
-          url: reference-architectures/leaderboard-non-relational.md
-        - text: Relational Database Leaderboard
-          url: reference-architectures/leaderboard-relational.md
-
-    # Card
-    - title: AI in Games
-      imageSrc: ./media/ai-games.svg
-      links:
+  # AI in games
+  - title: AI in games
+    linkLists:
+      - linkListType: overview
+        links:
         - text: Cognitive Services
           url: reference-architectures/cognitive.md
         - text: Content Moderation
@@ -108,15 +80,16 @@ productDirectory:
           url: reference-architectures/cognitive-text-to-speech.md
         - text: Speech to Text
           url: reference-architectures/cognitive-speech-to-text.md
-        - text: Customer Service Bot
-          url: reference-architectures/cognitive-css-bot.md
 
-    # Card
-    - title: Game Streaming
-      imageSrc: ./media/game-streaming.svg
-      links:
+# Game streaming
+  - title: Game streaming
+    linkLists:
+      - linkListType: overview
+        links:
         - text: Unreal Pixel Streaming in Azure
           url: reference-architectures/unreal-pixel-streaming-in-azure.md
+      - linkListType: how-to-guide
+        links:
         - text: Deploying Unreal Pixel Streaming in Azure
           url: reference-architectures/unreal-pixel-streaming-deploying.md
         - text: Unreal Pixel Streaming at Scale in Azure
@@ -124,33 +97,62 @@ productDirectory:
         - text: Set up a STUN and TURN Server in Azure
           url: reference-architectures/stun-turn-server-in-azure.md
 
-    # Card
-    - title: Cloud Build Pipelines
-      imageSrc: ./media/game-streaming.svg
-      links:
-        - text: Perforce - Using AAD together with Perforce
-          url: reference-architectures/perforce-using-aad-together-with-perforce.md
-        - text: Perforce - Logging on with a Managed Identity
-          url: reference-architectures/perforce-logging-on-with-a-managed-identity.md
-        - text: Perforce - Set up a Proxy in Azure
-          url: reference-architectures/perforce-set-up-a-proxy-in-azure.md
-        - text: Incredibuild - Scale out your cloud builds
-          url: reference-architectures/incredibuild-scale-out-your-cloud-builds.md
-        - text: Azure Cloud Builds - Full Guide
-          url: reference-architectures/azurecloudbuilds-0-intro.md
-    
-    - title: Game Development Virtual Machine
-      imageSrc: ./media/game-server-hosting.svg
-      links:
+# Game hosting and servers
+  - title: Game hosting and servers
+    linkLists:
+      - linkListType: overview
+        links:
         - text: Overview
-          url: game-dev-virtual-machine/overview.md
-        - text: Tools included
-          url: game-dev-virtual-machine/tools-included-azure-game-dev-kit.md
-        - text: Get started with Unreal
-          url: game-dev-virtual-machine/create-game-development-vm-for-unreal.md
-        - text: Remoting with Parsec
-          url: game-dev-virtual-machine/remote-to-vm-with-parsec.md
-        - text: Remoting with Teradici
-          url: game-dev-virtual-machine/remote-to-vm-with-teradici.md
-        - text: Choosing the right GPU SKU
-          url: game-dev-virtual-machine/choosing-gpu-sku.md            
+          url: reference-architectures/multiplayer.md
+        - text: Real-time multiplayer
+          url: reference-architectures/multiplayer-synchronous.md
+        - text: Turn-Based multiplayer
+          url: reference-architectures/multiplayer-asynchronous.md
+        - text: Managed game servers
+          url: /gaming/playfab/features/multiplayer/servers/
+
+# Managed game backend
+  - title: Managed game services
+    linkLists:
+      - linkListType: overview
+        links:
+        - text: Azure PlayFab
+          url: /gaming/playfab/what-is-playfab
+        - text: Achievements and leaderboards
+          url: /gaming/playfab/features/social/tournaments-leaderboards/
+        - text: Authentication
+          url: /gaming/playfab/features/authentication/
+        - text: Game servers
+          url: /gaming/playfab/features/multiplayer/servers/
+        - text: Game data and tools for analytics
+          url: /gaming/playfab/features/data/dataconnections/
+        - text: Game insights
+          url: /gaming/playfab/features/insights/
+        - text: In-game economy
+          url: /playfab/features/economy-v2/
+        - text: Matchmaking and lobby
+          url: /gaming/playfab/features/multiplayer/lobby/
+        - text: Text/video chat and peer-to-peer networking
+          url: /gaming/playfab/features/multiplayer/networking/
+        - text: User generated content
+          url: /playfab/features/economy-v2/ugc/
+
+  # Intro to Azure
+  - title: Intro to Azure for developers
+    linkLists:
+      - linkListType: overview
+        links:
+        - text: Overview
+          url: /azure/developer/intro/azure-developer-overview
+        - text: Manage access
+          url: intro-to-azure/concept-manage-access.md
+        - text: General guidelines
+          url: reference-architectures/general-guidelines.md
+      - linkListType: how-to-guide
+        links:
+        - text: Set up Azure account
+          url: intro-to-azure/set-up-account-to-access-services.md
+      - linkListType: reference
+        links:
+        - text: Glossary
+          url: intro-to-azure/glossary.md

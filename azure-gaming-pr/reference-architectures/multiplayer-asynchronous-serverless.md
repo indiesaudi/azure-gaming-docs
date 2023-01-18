@@ -17,11 +17,11 @@ ms.prod: azure-gaming
 
 ## Architecture services
 
-- [Azure Function](https://docs.microsoft.com/azure/azure-functions/functions-overview) - Used to run small pieces of matchmaking logic. Note that when using a Consumption plan, Function definitions are stored in File Storage, meaning that you will have to create a Storage account. For optimal performance you should use a Storage account in the same region as the Functions.
-- [Azure Database for MySQL](https://docs.microsoft.com/azure/mysql/) - Used to store the information as it is fast, lightweight, reliable and cost effective.
-- [Notification Hub](https://docs.microsoft.com/azure/mysql/) - An easy-to-use and scaled-out push engine that allows you to send notifications to many platforms (iOS, Android, Windows, Kindle, Baidu, etc.).
+- [Azure Function](/azure/azure-functions/functions-overview) - Used to run small pieces of matchmaking logic. Note that when using a Consumption plan, Function definitions are stored in File Storage, meaning that you will have to create a Storage account. For optimal performance you should use a Storage account in the same region as the Functions.
+- [Azure Database for MySQL](/azure/mysql/) - Used to store the information as it is fast, lightweight, reliable and cost effective.
+- [Notification Hub](/azure/mysql/) - An easy-to-use and scaled-out push engine that allows you to send notifications to many platforms (iOS, Android, Windows, Kindle, Baidu, etc.).
 - [SignalR](https://azure.microsoft.com/services/signalr-service/) - Simplifies the process of adding real-time web functionality to applications over HTTP, allowing you to push data to connected device clients.
-- [Key Vault](https://docs.microsoft.com/azure/key-vault/key-vault-overview) - The best service for managing secrets, including database connection strings.
+- [Key Vault](/azure/key-vault/key-vault-overview) - The best service for managing secrets, including database connection strings.
 
 ## Design considerations
 
@@ -61,15 +61,15 @@ In this reference architecture, a helper class (Data Client) will connect to and
 
 ### Exercise for the reader
 
-Consider [fronting the database with a cache](https://docs.microsoft.com/azure/architecture/best-practices/caching?toc=/azure/redis-cache/toc.json#considerations-for-using-caching) or scale up the database to avoid exhausting the connections to the database.
+Consider [fronting the database with a cache](/azure/architecture/best-practices/caching?toc=/azure/redis-cache/toc.json#considerations-for-using-caching) or scale up the database to avoid exhausting the connections to the database.
 
 ## Security considerations
 
-Do not hard-code the database connection string into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](https://docs.microsoft.com/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
+Do not hard-code the database connection string into the source of the Function.  Instead, at a minimum, leverage the [Function App Settings](/azure/azure-functions/functions-how-to-use-azure-function-app-settings#manage-app-service-settings) or, for even stronger security, use [Key Vault](/azure/key-vault/) instead. There is a tutorial explaining how to [create a Key Vault](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/create-an-azure-key-vault-and-secret/), how to [use a managed service identity with a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/using-managed-service-identity-msi-with-and-azure-app-service-or-an-azure-function/) and finally how to [read the secret stored in Key Vault from a Function](https://blogs.msdn.microsoft.com/benjaminperkins/2018/06/13/how-to-connect-to-a-database-from-an-azure-function-using-azure-key-vault/).
 
 ## Alternatives
 
-In this reference architecture, Azure Database for MySQL was used, however it could be replaced with [Azure SQL Database](https://docs.microsoft.com/azure/sql-database/sql-database-technical-overview) or [Azure Database for PostgreSQL](https://docs.microsoft.com/azure/postgresql/).
+In this reference architecture, Azure Database for MySQL was used, however it could be replaced with [Azure SQL Database](/azure/sql-database/sql-database-technical-overview) or [Azure Database for PostgreSQL](/azure/postgresql/).
 
 ## Additional resources and samples
 
@@ -95,7 +95,7 @@ Here's how it works:
 
 ## Pricing
 
-If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](https://docs.microsoft.com/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
+If you don't have an Azure subscription, create a [free account](https://aka.ms/azfreegamedev) to get started with 12 months of free services. You're not charged for services included for free with Azure free account, unless you exceed the limits of these services. Learn how to check usage through the [Azure Portal](/azure/billing/billing-check-free-service-usage#check-usage-on-the-azure-portal) or through the [usage file](/azure/billing/billing-check-free-service-usage#check-usage-through-the-usage-file).
 
 You are responsible for the cost of the Azure services used while running these reference architectures.  The total amount will vary based on usage. See the pricing webpages for each of the services that were used in the reference architecture:
 
